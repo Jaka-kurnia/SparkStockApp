@@ -7,12 +7,10 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+ 
     public function index()
     {
-        //
+        return view("supplier.index");
     }
 
     /**
@@ -20,7 +18,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view("supplier.create");
     }
 
     /**
