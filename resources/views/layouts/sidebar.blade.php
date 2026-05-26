@@ -4,17 +4,18 @@
             aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <h1 class="navbar-brand navbar-brand-autodark my-2 my-lg-3">
             <a href=".">
-                <img src="{{ asset('static/logo.png') }}" alt="Tabler" class="navbar-brand-image" style="height: 2rem; width: auto;">
+                <img src="{{ asset('static/logo.png') }}" alt="Tabler" class="navbar-brand-image"
+                    style="height: 2rem; width: auto;">
             </a>
         </h1>
-        
+
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3 pt-lg-2">
-                
-                <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
+
+                <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} mb-2">
                     <a class="nav-link py-2.5" href="./">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-layout-dashboard" style="font-size: 1.25rem; line-height: 1;"></i>
@@ -24,9 +25,12 @@
                         </span>
                     </a>
                 </li>
-                
-                <li class="nav-item dropdown {{ request()->is(['supplier'] ) ? 'active open' : ' ' }}">
-                    <a  class="nav-link dropdown-toggle py-2.5" data-bs-toggle="dropdown">
+
+                <li
+                    class="nav-item dropdown {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'active show' : '' }}">
+                    <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'show' : '' }}"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="{{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'true' : 'false' }}">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-database" style="font-size: 1.25rem; line-height: 1;"></i>
                         </span>
@@ -34,11 +38,18 @@
                             Master Data
                         </span>
                     </a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item py-2 {{ request()->routeIs('supplier.index') ? 'active' : '' }}" href="{{ route('supplier.index') }}">
-                                    Supplier
+                                <a class="dropdown-item py-2 {{ request()->routeIs('supplier.index') ? 'active' : '' }}"
+                                    href="{{ route('supplier.index') }}">
+                                    <i class="ti ti-users me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Suppliers
+                                </a>
+                                <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.index') ? 'active' : '' }}"
+                                    href="{{ route('sparepart.index') }}">
+                                    <i class="ti ti-stack-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Spareparts
                                 </a>
                             </div>
                         </div>

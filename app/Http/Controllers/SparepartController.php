@@ -12,7 +12,7 @@ class SparepartController extends Controller
      */
     public function index()
     {
-        //
+        return view('sparepart.index');
     }
 
     /**
