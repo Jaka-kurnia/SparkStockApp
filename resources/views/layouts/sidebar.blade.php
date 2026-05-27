@@ -6,7 +6,7 @@
         </button>
 
         <h1 class="navbar-brand navbar-brand-autodark my-1 my-lg-2">
-            <a href=".">
+            <a href="{{ url('/') }}">
                 <img src="{{ asset('dist/logo/logo.png') }}" alt="SparkStock" class="navbar-brand-image"
                     style="width: auto; height: 52px;">
             </a>
@@ -15,8 +15,9 @@
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3 pt-lg-2">
 
+                {{-- 1. Dashboard --}}
                 <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} mb-2">
-                    <a class="nav-link py-2.5" href="./">
+                    <a class="nav-link py-2.5" href="{{ url('/dashboard') }}">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-layout-dashboard" style="font-size: 1.25rem; line-height: 1;"></i>
                         </span>
@@ -26,11 +27,12 @@
                     </a>
                 </li>
 
-                <li
-                    class="nav-item dropdown {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'active show' : '' }}">
-                    <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'show' : '' }}"
+                {{-- 2. Master Data Dropdown --}}
+                {{-- Ditambahkan 'customer.*' agar parent tetap terbuka saat menu customer aktif --}}
+                <li class="nav-item dropdown {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'active show' : '' }} mb-2">
+                    <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'show' : '' }}"
                         data-bs-toggle="dropdown"
-                        aria-expanded="{{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'true' : 'false' }}">
+                        aria-expanded="{{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'true' : 'false' }}">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-database" style="font-size: 1.25rem; line-height: 1;"></i>
                         </span>
@@ -38,7 +40,7 @@
                             Master Data
                         </span>
                     </a>
-                    <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'show' : '' }}">
+                    <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item py-2 {{ request()->routeIs('supplier.*') ? 'active' : '' }}"
@@ -49,14 +51,39 @@
 
                                 <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.*') ? 'active' : '' }}"
                                     href="{{ route('sparepart.index') }}">
-                                    <i class="ti ti-stack-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-stack-2 me-2" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Spareparts
                                 </a>
 
                                 <a class="dropdown-item py-2 {{ request()->routeIs('customer.*') ? 'active' : '' }}"
                                     href="{{ route('customer.index') }}">
-                                    <i class="ti ti-users me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-user-check me-2" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Customers
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                {{-- 3. Transaksi Dropdown --}}
+                <li class="nav-item dropdown {{ request()->routeIs(['service.*']) ? 'active show' : '' }} mb-2">
+                    <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['service.*']) ? 'show' : '' }}"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="{{ request()->routeIs(['service.*']) ? 'true' : 'false' }}">
+                        <span class="nav-link-icon d-flex align-items-center justify-content-center">
+                            <i class="ti ti-database" style="font-size: 1.25rem; line-height: 1;"></i>
+                        </span>
+                        <span class="nav-link-title ms-2">
+                            Transaksi
+                        </span>
+                    </a>
+                    <div class="dropdown-menu {{ request()->routeIs(['service.*']) ? 'show' : '' }}">
+                        <div class="dropdown-menu-columns">
+                            <div class="dropdown-menu-column">
+                                <a class="dropdown-item py-2 {{ request()->routeIs('service.*') ? 'active' : '' }}"
+                                    href="{{ route('service.index') }}">
+                                    <i class="ti ti-file-invoice me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Services
                                 </a>
                             </div>
                         </div>

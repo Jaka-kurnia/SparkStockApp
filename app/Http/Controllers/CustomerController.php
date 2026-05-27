@@ -13,9 +13,13 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['customer'] = Customer::paginate(10);
+        $query = Customer::query();
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        $data['customer'] = $query->paginate(10);
         return view('customer.index', $data);
     }
 

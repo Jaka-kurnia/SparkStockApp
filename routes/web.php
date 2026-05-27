@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,9 @@ Route::get('customer/export-pdf', [CustomerController::class, 'exportPdf'])->nam
 
 Route::resource('customer', CustomerController::class);
 // end route untuk customer
+
+// route service
+Route::get('service/export-pdf', [ServiceController::class, 'exportPdf'])->name('service.exportPdf');
+Route::get('service/export-excel', [ServiceController::class, 'exportExcel'])->name('service.exportExcel');
+Route::resource('service', ServiceController::class);
+// end route service
