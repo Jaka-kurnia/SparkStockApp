@@ -10,9 +10,16 @@ class SparepartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('sparepart.index');
+        $query = Sparepart::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $data['sparepart'] = $query->paginate(5);
+        return view('sparepart.index', $data);
     }
 
     /**

@@ -4,7 +4,7 @@
 <head>
     <title>Laporan Data Supplier</title>
     <style>
-        /* Mengatur margin kertas PDF */
+       /* Mengatur Margin Kertas */
         @page {
             margin: 1.5cm;
         }
