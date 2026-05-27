@@ -15,4 +15,6 @@ Route::resource('supplier', SupplierController::class);
 // end route untuk supplier
 
 // route untuk sparepart
+Route::get('sparepart/export-excel', [SparepartController::class, 'exportExcel'])->name('sparepart.exportExcel');
+Route::get('sparepart/export-pdf', [SparepartController::class, 'exportPdf'])->name('sparepart.exportPdf');
 Route::resource('sparepart', SparepartController::class);

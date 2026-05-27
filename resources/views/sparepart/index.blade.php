@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Sparepart</h3>
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('sparepart.create') }}" class="btn btn-primary">
                     <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
                     Tambah Sparepart
                 </a>
@@ -14,7 +14,7 @@
 
             {{-- Bagian Filter & Search --}}
             <div class="card-body border-bottom py-3">
-                <form action="#" method="GET" id="search-form">
+                <form action="{{ route('sparepart.index') }}" method="GET" id="search-form">
                     <div class="d-flex align-items-center justify-content-between">
 
                         <div class="text-secondary d-flex align-items-center gap-1">
@@ -31,20 +31,20 @@
                                 </div>
                             </div>
                             @if (request('name'))
-                                <a href="#"
-                                    class="btn btn-sm btn-link text-danger ms-1">Reset</a>
+                                <a href="{{ route('sparepart.index') }}"
+                                    class="btn btn-sm btn-outline-danger ms-1">Reset</a>
                             @endif
                         </div>
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="#" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('sparepart.exportPdf') }}" class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
 
                             {{-- Excel --}}
-                            <a href="#" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('sparepart.exportExcel') }}" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-excel" style="font-size: 18px"></i>
                                 <span>Export Excel</span>
                             </a>
@@ -87,12 +87,16 @@
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->location }}</td>
                                 <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('sparepart.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                         <i class="ti ti-edit" style="font-size: 18px"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-danger">
-                                        <i class="ti ti-trash" style="font-size: 18px"></i>
-                                    </a>
+                                    <form action="{{ route('sparepart.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                            <i class="ti ti-trash" style="font-size: 18px"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -102,15 +106,15 @@
 
             {{-- Bagian Pagination Terintegrasi Laravel --}}
             <div class="card-footer d-flex align-items-center justify-content-between">
-                {{-- <p class="m-0 text-secondary">
-                    Showing <span>{{ $supplier->firstItem() ?? 0 }}</span> to
-                    <span>{{ $supplier->lastItem() ?? 0 }}</span> of <span>{{ $supplier->total() }}</span> entries
-                </p> --}}
+                <p class="m-0 text-secondary">
+                    Showing <span>{{ $sparepart->firstItem() ?? 0 }}</span> to
+                    <span>{{ $sparepart->lastItem() ?? 0 }}</span> of <span>{{ $sparepart->total() }}</span> entries
+                </p>
 
                 {{-- Memanggil link pagination bawaan Laravel yang otomatis kompatibel dengan Bootstrap/Tabler --}}
-                {{-- <div class="m-0 ms-auto">
-                    {{ $supplier->links() }}
-                </div> --}}
+                <div class="m-0 ms-auto">
+                    {{ $sparepart->links() }}
+                </div>
             </div>
             {{-- End pagination --}}
         </div>
