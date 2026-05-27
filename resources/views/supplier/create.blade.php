@@ -12,11 +12,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Nama Supplier</label>
-                                <input type="text" 
-                                       class="form-control @error('name') is-invalid @enderror" 
-                                       name="name" 
-                                       value="{{ old('name') }}" 
-                                       placeholder="Input Nama Supplier">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" placeholder="Input Nama Supplier">
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -26,11 +23,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" 
-                                       class="form-control @error('email') is-invalid @enderror" 
-                                       name="email" 
-                                       value="{{ old('email') }}" 
-                                       placeholder="Input Email">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" placeholder="Input Email">
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -40,11 +34,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">No. Telepon</label>
-                                <input type="text" 
-                                       class="form-control @error('phone') is-invalid @enderror" 
-                                       name="phone" 
-                                       value="{{ old('phone') }}" 
-                                       placeholder="Input No. Telepon">
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                                    name="phone" value="{{ old('phone') }}" placeholder="Input No. Telepon">
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -54,10 +45,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Alamat</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" 
-                                          name="address" 
-                                          rows="4" 
-                                          placeholder="Input Alamat">{{ old('address') }}</textarea>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" rows="4"
+                                    placeholder="Input Alamat">{{ old('address') }}</textarea>
                                 @error('address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

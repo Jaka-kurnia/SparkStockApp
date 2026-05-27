@@ -5,12 +5,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <h1 class="navbar-brand navbar-brand-autodark my-2 my-lg-3">
-            <a href=".">
-                <img src="{{ asset('static/logo.png') }}" alt="Tabler" class="navbar-brand-image"
-                    style="height: 2rem; width: auto;">
-            </a>
-        </h1>
+        <h1 class="navbar-brand navbar-brand-autodark my-1 my-lg-2">
+    <a href=".">
+        <img src="{{ asset('dist/logo/logo.png') }}" alt="SparkStock" class="navbar-brand-image"
+             style="width: auto; height: 52px;"> <!-- Ukuran yang lebih proporsional -->
+    </a>
+</h1>
 
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3 pt-lg-2">
@@ -41,12 +41,13 @@
                     <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item py-2 {{ request()->routeIs('supplier.index') ? 'active' : '' }}"
+                                <a class="dropdown-item py-2 {{ request()->routeIs('supplier.*') ? 'active' : '' }}"
                                     href="{{ route('supplier.index') }}">
                                     <i class="ti ti-users me-2" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Suppliers
                                 </a>
-                                <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.index') ? 'active' : '' }}"
+
+                                <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.*') ? 'active' : '' }}"
                                     href="{{ route('sparepart.index') }}">
                                     <i class="ti ti-stack-2" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Spareparts

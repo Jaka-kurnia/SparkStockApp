@@ -7,7 +7,7 @@
                      SparkStock!
                  </div>
                  <h2 class="page-title">
-                     Dashboard
+                     @yield('page_title')
                  </h2>
              </div>
          </div>

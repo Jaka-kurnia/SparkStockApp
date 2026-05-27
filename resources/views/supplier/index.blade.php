@@ -1,141 +1,125 @@
 @extends('layouts.app')
+@section('title', 'Daftar Supplier')
+@section('page_title', 'Daftar Supplier')
 @section('content')
+
     <div class="col-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Supplier</h3>
-                <a href="{{ route('supplier.create') }}" class="btn btn-primary">Tambah Supplier</a>
+                <a href="{{ route('supplier.create') }}" class="btn btn-primary">
+                    <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
+                    Tambah Supplier
+                </a>
             </div>
+
+            {{-- Bagian Filter & Search --}}
             <div class="card-body border-bottom py-3">
-                <div class="d-flex">
-                    <div class="text-secondary">
-                        Show
-                        <div class="mx-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" value="8" size="3"
-                                aria-label="Invoices count">
+                <form action="{{ route('supplier.index') }}" method="GET" id="search-form">
+                    <div class="d-flex align-items-center justify-content-between">
+
+                        <div class="text-secondary d-flex align-items-center gap-1">
+                            Search:
+                            <div class="ms-2 d-inline-block shadow-sm">
+                                <div class="input-group gap-2">
+                                    <input type="text" class="form-control form-control-sm" name="name"
+                                        value="{{ request('name') }}" placeholder="Cari nama..."
+                                        onchange="this.form.submit()">
+                                    <button class="btn btn-sm btn-primary" type="submit">
+                                        <i class="ti ti-search" style="font-size: 18px; padding-right:10px;"></i>
+                                        Cari
+                                    </button>
+                                </div>
+                            </div>
+                            @if (request('name'))
+                                <a href="{{ route('supplier.index') }}"
+                                    class="btn btn-sm btn-link text-danger ms-1">Reset</a>
+                            @endif
                         </div>
-                        entries
-                    </div>
-                    <div class="ms-auto text-secondary">
-                        Search:
-                        <div class="ms-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+
+                        <div class="d-flex align-items-center gap-2">
+                            {{-- PDF --}}
+                            <a href="{{route('supplier.exportPdf')}}" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                                <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
+                                <span>Export PDF</span>
+                            </a>
+
+                            {{-- Excel --}}
+                            <a href="{{route('supplier.exportExcel')}}" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                                <i class="ti ti-file-excel" style="font-size: 18px"></i>
+                                <span>Export Excel</span>
+                            </a>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
+
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowrap datatable">
                     <thead>
                         <tr>
-                            <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox"
-                                    aria-label="Select all invoices"></th>
-                            <th class="w-1">No.
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm icon-thick" width="24"
-                                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M6 15l6 -6l6 6"></path>
-                                </svg>
+                            <th class="w-1">
+                                <input class="form-check-input m-0 align-middle"
+                                    type="checkbox"aria-label="Select all invoices">
                             </th>
+                            <th class="w-1">No.</th>
                             <th>Supplier Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Address</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
-                    {{-- Table Body --}}
                     <tbody>
                         @forelse ($supplier as $item)
                             <tr>
-                                {{-- checkbox --}}
-                                <td>
-                                    <input class="form-check-input m-0 align-middle"
-                                        type="checkbox"aria-label="Select invoice">
+                                <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+                                {{-- Penomoran yang benar untuk pagination --}}
+                                <td><span
+                                        class="text-secondary">{{ ($supplier->currentPage() - 1) * $supplier->perPage() + $loop->iteration }}</span>
                                 </td>
-                                {{-- no --}}
+                                <td><a href="#" class="text-reset">{{ $item->name }}</a></td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->address }}</td>
                                 <td>
-                                    <span class="text-secondary">{{ $loop->iteration }}</span>
-                                </td>
-                                {{-- supplier name --}}
-                                <td>
-                                    <a href="invoice.html" class="text-reset" tabindex="-1">{{ $item->name }}</a>
-                                </td>
-                                {{-- email --}}
-                                <td>
-                                    {{ $item->email }}
-                                </td>
-                                {{-- phone --}}
-                                <td>
-                                    {{ $item->phone }}
-                                </td>
-                                {{-- address --}}
-                                <td>
-                                    {{ $item->address }}
-                                </td>
-                                {{-- actions --}}
-                                <td>
-                                    <div class=" d-flex justify-content-around gap-2">
-                                        <a href="{{ route('supplier.edit', $item->id) }}"
-                                            class="btn btn-warning btn-md gap-0.5">Edit</a>
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <a href="{{ route('supplier.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                            <i class="ti ti-edit" style="font-size: 18px;"></i>
+                                        </a>
                                         <form action="{{ route('supplier.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-md gap-0.5"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
-                                                return false;>Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <i class="ti ti-trash" style="font-size: 18px;"></i>
+                                            </button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
-
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Data Supplier Tidak Ada</td>
+                                <td colspan="7" class="text-center">Data Supplier Tidak Ada</td>
                             </tr>
                         @endforelse
-
                     </tbody>
                 </table>
             </div>
-            {{-- pagination --}}
-            <div class="card-footer d-flex align-items-center">
-                <p class="m-0 text-secondary">Showing <span>1</span> to <span>8</span> of <span>16</span> entries</p>
-                <ul class="pagination m-0 ms-auto">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M15 6l-6 6l6 6"></path>
-                            </svg>
-                            prev
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M9 6l6 6l-6 6"></path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
+
+            {{-- Bagian Pagination Terintegrasi Laravel --}}
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <p class="m-0 text-secondary">
+                    Showing <span>{{ $supplier->firstItem() ?? 0 }}</span> to
+                    <span>{{ $supplier->lastItem() ?? 0 }}</span> of <span>{{ $supplier->total() }}</span> entries
+                </p>
+
+                {{-- Memanggil link pagination bawaan Laravel yang otomatis kompatibel dengan Bootstrap/Tabler --}}
+                <div class="m-0 ms-auto">
+                    {{ $supplier->links() }}
+                </div>
             </div>
             {{-- End pagination --}}
         </div>
-        {{-- End card --}}
     </div>
-    {{-- End col --}}
 @endsection

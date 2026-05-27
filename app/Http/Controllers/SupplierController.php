@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SupplierExport;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SupplierController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data['supplier'] = Supplier::all();
+        $query = Supplier::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $data['supplier'] = $query->paginate(5);
+
         return view("supplier.index", $data);
     }
 
@@ -117,5 +127,17 @@ class SupplierController extends Controller
         } else {
             return back()->with('error', 'Data gagal dihapus');
         }
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new SupplierExport, 'data-supplier.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $supplier = Supplier::all();
+        $pdf = Pdf::loadView('supplier.pdf', compact('supplier'));
+        return $pdf->stream('laporan-supplier.pdf');
     }
 }
