@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,11 @@ Route::resource('supplier', SupplierController::class);
 Route::get('sparepart/export-excel', [SparepartController::class, 'exportExcel'])->name('sparepart.exportExcel');
 Route::get('sparepart/export-pdf', [SparepartController::class, 'exportPdf'])->name('sparepart.exportPdf');
 Route::resource('sparepart', SparepartController::class);
+// end route untuk sparepart
+
+// route untuk customer
+Route::get('customer/export-excel', [CustomerController::class, 'exportExcel'])->name('customer.export.Excel');
+Route::get('customer/export-pdf', [CustomerController::class, 'exportPdf'])->name('customer.export.Pdf');
+
+Route::resource('customer', CustomerController::class);
+// end route untuk customer
