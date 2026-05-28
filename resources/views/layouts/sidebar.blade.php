@@ -41,7 +41,7 @@
                             Master Data
                         </span>
                     </a>
-                    <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'show' : '' }}">
+                    <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*', 'mechanic.*','vehicle.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 @can('manage-suppliers')

@@ -10,7 +10,7 @@ class Mechanic extends Model
         'user_id',
         'name_mechanic',
         'phone',
-        'status',
+        'is_active',
     ];
 
     public function user()

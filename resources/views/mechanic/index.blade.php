@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Mekanik</h3>
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('mechanic.create') }}" class="btn btn-primary">
                     <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
                     Tambah Mekanik
                 </a>
@@ -37,13 +37,13 @@
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="#" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('mechanic.exportPdf') }}" class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
 
                             {{-- Excel --}}
-                            <a href="#" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                            <a href="{{route('mechanic.exportExcel')}}" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-excel" style="font-size: 18px"></i>
                                 <span>Export Excel</span>
                             </a>
@@ -78,9 +78,11 @@
                                 <td>{{ $item->name_mechanic }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>
-                                    <span class="badge {{ $item->status == 1 ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $item->status == 1 ? 'Aktif' : 'Nonaktif' }}
-                                    </span>
+                                    @if ($item->is_active == 1)
+                                        <span class="badge bg-success text-white">Aktif</span>
+                                    @else
+                                        <span class="badge bg-danger text-white">Nonaktif</span>
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('mechanic.edit', $item->id) }}" class="btn btn-sm btn-warning">
@@ -108,15 +110,15 @@
 
             {{-- Bagian Pagination Terintegrasi Laravel --}}
             <div class="card-footer d-flex align-items-center justify-content-between">
-                {{-- <p class="m-0 text-secondary">
-                    Showing <span>{{ $sparepart->firstItem() ?? 0 }}</span> to
-                    <span>{{ $sparepart->lastItem() ?? 0 }}</span> of <span>{{ $sparepart->total() }}</span> entries
-                </p> --}}
+                <p class="m-0 text-secondary">
+                    Showing <span>{{ $mechanic->firstItem() ?? 0 }}</span> to
+                    <span>{{ $mechanic->lastItem() ?? 0 }}</span> of <span>{{ $mechanic->total() }}</span> entries
+                </p>
 
                 {{-- Memanggil link pagination bawaan Laravel yang otomatis kompatibel dengan Bootstrap/Tabler --}}
-                {{-- <div class="m-0 ms-auto">
-                    {{ $sparepart->links() }}
-                </div> --}}
+                <div class="m-0 ms-auto">
+                    {{ $mechanic->links() }}
+                </div>
             </div>
             {{-- End pagination --}}
         </div>
