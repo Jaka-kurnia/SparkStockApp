@@ -12,7 +12,8 @@ class MechanicController extends Controller
      */
     public function index()
     {
-        return view('mechanic.index');
+        $data['mechanic'] = Mechanic::paginate(10);
+        return view('mechanic.index', $data);
     }
 
     /**
