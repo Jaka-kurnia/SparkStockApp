@@ -102,13 +102,18 @@
                             Transaksi
                         </span>
                     </a>
-                    <div class="dropdown-menu {{ request()->routeIs(['service.*']) ? 'show' : '' }}">
+                    <div class="dropdown-menu {{ request()->routeIs(['service.*', 'stocktransaction.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item py-2 {{ request()->routeIs('service.*') ? 'active' : '' }}"
                                     href="{{ route('service.index') }}">
                                     <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Services
+                                </a>
+                                <a class="dropdown-item py-2 {{ request()->routeIs('stocktransaction.*') ? 'active' : '' }}"
+                                    href="{{ route('stocktransaction.index') }}">
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Stock Transaction
                                 </a>
                             </div>
                         </div>

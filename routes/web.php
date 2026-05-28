@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SparepartController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\StokTransactionController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication routes
@@ -18,7 +19,7 @@ Route::get('/auth/switch/{role}', [AuthController::class, 'quickSwitch'])->name(
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {
-    
+
     // Route untuk supplier (Requires manage-suppliers permission)
     Route::middleware(['permission:manage-suppliers'])->group(function () {
         Route::get('supplier/export-excel', [SupplierController::class, 'exportExcel'])->name('supplier.exportExcel');
@@ -53,12 +54,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('vehicle/export-excel', [VehicleController::class, 'exportExcel'])->name('vehicle.exportExcel');
         Route::resource('vehicle', VehicleController::class);
     });
-    
+
+    // Route mechanic (Requires manage-mechanic permission)
     Route::middleware(['permission:manage-mechanic'])->group(function () {
         Route::get('mechanic/export-pdf', [MechanicController::class, 'exportPdf'])->name('mechanic.exportPdf');
         Route::get('mechanic/export-excel', [MechanicController::class, 'exportExcel'])->name('mechanic.exportExcel');
         Route::resource('mechanic', MechanicController::class);
     });
+
+    Route::middleware(['permission:manage-stock-transaction'])->group(function () {
+        Route::get('stocktransection/export-pdf', [StokTransactionController::class, 'exportPdf'])->name('stocktransaction.exportPdf');
+        Route::get('mechanic/export-excel', [StokTransactionController::class, 'exportExcel'])->name('stocktransaction.exportExcel');
+        Route::resource('stocktransaction', StokTransactionController::class);
+    });
+
 
     // Owner only: Role & Permission Management
     Route::middleware(['role:owner'])->group(function () {

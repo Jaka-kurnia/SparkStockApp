@@ -12,4 +12,9 @@ class Supplier extends Model
         'phone',
         'address',
     ];
+
+    public function stoktransactions()
+    {
+        return $this->hasMany(StokTransaction::class);
+    }
 }

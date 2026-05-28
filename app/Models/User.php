@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mechanic::class);
     }
+
+    public function stoktransactions()
+    {
+        return $this->hasMany(StokTransaction::class);
+    }
 }
