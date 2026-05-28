@@ -29,6 +29,7 @@
 
                 {{-- 2. Master Data Dropdown --}}
                 {{-- Ditambahkan 'customer.*' agar parent tetap terbuka saat menu customer aktif --}}
+                @canany(['manage-suppliers', 'manage-spareparts', 'manage-customers', 'manage-vehicles'])
                 <li class="nav-item dropdown {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'active show' : '' }} mb-2">
                     <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'show' : '' }}"
                         data-bs-toggle="dropdown"
@@ -43,35 +44,53 @@
                     <div class="dropdown-menu {{ request()->routeIs(['supplier.*', 'sparepart.*', 'customer.*']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
+                                @can('manage-suppliers')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('supplier.*') ? 'active' : '' }}"
                                     href="{{ route('supplier.index') }}">
-                                    <i class="ti ti-users me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Suppliers
                                 </a>
+                                @endcan
 
+                                @can('manage-spareparts')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.*') ? 'active' : '' }}"
                                     href="{{ route('sparepart.index') }}">
-                                    <i class="ti ti-stack-2 me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Spareparts
                                 </a>
+                                @endcan
 
+                                @can('manage-customers')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('customer.*') ? 'active' : '' }}"
                                     href="{{ route('customer.index') }}">
-                                    <i class="ti ti-user-check me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                     <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Customers
                                 </a>
+                                @endcan
 
+                                @can('manage-vehicles')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('vehicle.*') ? 'active' : '' }}"
                                     href="{{ route('vehicle.index') }}">
-                                    <i class="ti ti-file-invoice" style="font-size: 1.1rem; line-height: 1;"></i>
+                                   <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Vehicles
                                 </a>
+                                @endcan
+
+                                @can('manage-mechanic')
+                                <a class="dropdown-item py-2 {{ request()->routeIs('mechanic.*') ? 'active' : '' }}"
+                                    href="{{ route('mechanic.index') }}">
+                                   <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Mechanic
+                                </a>
+                                @endcan
                             </div>
                         </div>
                     </div>
                 </li>
+                @endcanany
 
                 {{-- 3. Transaksi Dropdown --}}
+                @can('manage-services')
                 <li class="nav-item dropdown {{ request()->routeIs(['service.*']) ? 'active show' : '' }} mb-2">
                     <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['service.*']) ? 'show' : '' }}"
                         data-bs-toggle="dropdown"
@@ -88,13 +107,28 @@
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item py-2 {{ request()->routeIs('service.*') ? 'active' : '' }}"
                                     href="{{ route('service.index') }}">
-                                    <i class="ti ti-file-invoice me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Services
                                 </a>
                             </div>
                         </div>
                     </div>
                 </li>
+                @endcan
+
+                {{-- 4. Role Permissions (Owner Only) --}}
+                @role('owner')
+                <li class="nav-item {{ request()->routeIs('role-permissions.*') ? 'active' : '' }} mb-2">
+                    <a class="nav-link py-2.5" href="{{ route('role-permissions.index') }}">
+                        <span class="nav-link-icon d-flex align-items-center justify-content-center">
+                           <i class="ti ti-adjustments-horizontal" style="font-size: 1.25rem; line-height: 1;"></i>
+                        </span>
+                        <span class="nav-link-title ms-2">
+                            Role Permissions
+                        </span>
+                    </a>
+                </li>
+                @endrole
 
             </ul>
         </div>
