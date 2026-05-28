@@ -47,7 +47,7 @@
                                 @can('manage-suppliers')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('supplier.*') ? 'active' : '' }}"
                                     href="{{ route('supplier.index') }}">
-                                    <i class="ti ti-users me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Suppliers
                                 </a>
                                 @endcan
@@ -55,7 +55,7 @@
                                 @can('manage-spareparts')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('sparepart.*') ? 'active' : '' }}"
                                     href="{{ route('sparepart.index') }}">
-                                    <i class="ti ti-stack-2 me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Spareparts
                                 </a>
                                 @endcan
@@ -63,7 +63,7 @@
                                 @can('manage-customers')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('customer.*') ? 'active' : '' }}"
                                     href="{{ route('customer.index') }}">
-                                    <i class="ti ti-user-check me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                     <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Customers
                                 </a>
                                 @endcan
@@ -71,8 +71,16 @@
                                 @can('manage-vehicles')
                                 <a class="dropdown-item py-2 {{ request()->routeIs('vehicle.*') ? 'active' : '' }}"
                                     href="{{ route('vehicle.index') }}">
-                                    <i class="ti ti-file-invoice" style="font-size: 1.1rem; line-height: 1;"></i>
+                                   <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Vehicles
+                                </a>
+                                @endcan
+
+                                @can('manage-mechanic')
+                                <a class="dropdown-item py-2 {{ request()->routeIs('mechanic.*') ? 'active' : '' }}"
+                                    href="{{ route('mechanic.index') }}">
+                                   <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Mechanic
                                 </a>
                                 @endcan
                             </div>
@@ -99,7 +107,7 @@
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item py-2 {{ request()->routeIs('service.*') ? 'active' : '' }}"
                                     href="{{ route('service.index') }}">
-                                    <i class="ti ti-file-invoice me-2" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Services
                                 </a>
                             </div>

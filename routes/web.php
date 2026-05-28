@@ -6,6 +6,7 @@ use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('vehicle/export-pdf', [VehicleController::class, 'exportPdf'])->name('vehicle.exportPdf');
         Route::get('vehicle/export-excel', [VehicleController::class, 'exportExcel'])->name('vehicle.exportExcel');
         Route::resource('vehicle', VehicleController::class);
+    });
+    
+    Route::middleware(['permission:manage-mechanic'])->group(function () {
+        Route::get('mechanic/export-pdf', [MechanicController::class, 'exportPdf'])->name('mechanic.exportPdf');
+        Route::get('mechanic/export-excel', [MechanicController::class, 'exportExcel'])->name('mechanic.exportExcel');
+        Route::resource('mechanic', MechanicController::class);
     });
 
     // Owner only: Role & Permission Management

@@ -12,7 +12,7 @@ class MechanicController extends Controller
      */
     public function index()
     {
-        //
+        return view('mechanic.index');
     }
 
     /**

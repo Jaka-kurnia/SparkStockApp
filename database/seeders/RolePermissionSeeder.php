@@ -24,6 +24,7 @@ class RolePermissionSeeder extends Seeder
             'manage-spareparts',
             'manage-customers',
             'manage-vehicles',
+            'manage-mechanic',
             'manage-services',
             'manage-permissions',
         ];
@@ -43,6 +44,7 @@ class RolePermissionSeeder extends Seeder
             'manage-customers',
             'manage-vehicles',
             'manage-services',
+            'manage-mechanic',
         ]); // Admin has all except manage-permissions
 
         $kasirRole = Role::findOrCreate('kasir', 'web');
