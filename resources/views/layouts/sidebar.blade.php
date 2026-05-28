@@ -60,6 +60,12 @@
                                     <i class="ti ti-user-check me-2" style="font-size: 1.1rem; line-height: 1;"></i>
                                     Customers
                                 </a>
+
+                                <a class="dropdown-item py-2 {{ request()->routeIs('vehicle.*') ? 'active' : '' }}"
+                                    href="{{ route('vehicle.index') }}">
+                                    <i class="ti ti-file-invoice" style="font-size: 1.1rem; line-height: 1;"></i>
+                                    Vehicles
+                                </a>
                             </div>
                         </div>
                     </div>

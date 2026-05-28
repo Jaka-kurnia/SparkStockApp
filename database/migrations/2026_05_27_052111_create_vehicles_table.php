@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->char('plate_number', 10)->unique();
+            $table->enum('type', ['Matic', 'Bebek', 'Sport', 'Adventure', 'Klasik', 'Listrik']);
+            $table->integer('year');
+            $table->string('brand');
+            $table->string('merk');
+            $table->string('color');
             $table->timestamps();
         });
     }

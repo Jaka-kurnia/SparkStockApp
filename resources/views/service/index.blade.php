@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Service</h3>
-                <a href="{{route('service.create')}}" class="btn btn-primary">
+                <a href="{{ route('service.create') }}" class="btn btn-primary">
                     <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
                     Tambah Service
                 </a>
@@ -37,13 +37,15 @@
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="{{route('service.exportPdf')}}" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('service.exportPdf') }}"
+                                class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
 
                             {{-- Excel --}}
-                            <a href="#" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('service.exportExcel') }}"
+                                class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-excel" style="font-size: 18px"></i>
                                 <span>Export Excel</span>
                             </a>
@@ -93,9 +95,10 @@
                                 <td class="text-center">
                                     <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                         <i class="ti ti-file-pencil" style="font-size: 18px;"></i>
-                                        
+
                                     </a>
-                                    <form action="{{ route('service.destroy', $item->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('service.destroy', $item->id) }}" method="POST"
+                                        class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"
@@ -116,15 +119,15 @@
 
             {{-- Bagian Pagination Terintegrasi Laravel --}}
             <div class="card-footer d-flex align-items-center justify-content-between">
-                {{-- <p class="m-0 text-secondary">
-                    Showing <span>{{ $supplier->firstItem() ?? 0 }}</span> to
-                    <span>{{ $supplier->lastItem() ?? 0 }}</span> of <span>{{ $supplier->total() }}</span> entries
-                </p> --}}
+                <p class="m-0 text-secondary">
+                    Showing <span>{{ $service->firstItem() ?? 0 }}</span> to
+                    <span>{{ $service->lastItem() ?? 0 }}</span> of <span>{{ $service->total() }}</span> entries
+                </p>
 
                 {{-- Memanggil link pagination bawaan Laravel yang otomatis kompatibel dengan Bootstrap/Tabler --}}
-                {{-- <div class="m-0 ms-auto">
-                    {{ $supplier->links() }}
-                </div> --}}
+                <div class="m-0 ms-auto">
+                    {{ $service->links() }}
+                </div>
             </div>
             {{-- End pagination --}}
         </div>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ServiceExport;
 use App\Models\Service;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ServiceController extends Controller
 {
@@ -110,5 +112,10 @@ class ServiceController extends Controller
         $data['service'] = Service::all();
         $pdf = Pdf::loadView('service.pdf', $data);
         return $pdf->stream('service.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ServiceExport(), 'service.xlsx');
     }
 }

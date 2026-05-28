@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,3 +35,9 @@ Route::get('service/export-pdf', [ServiceController::class, 'exportPdf'])->name(
 Route::get('service/export-excel', [ServiceController::class, 'exportExcel'])->name('service.exportExcel');
 Route::resource('service', ServiceController::class);
 // end route service
+
+// route vehicle
+Route::get('vehicle/export-pdf', [VehicleController::class, 'exportPdf'])->name('vehicle.exportPdf');
+Route::get('vehicle/export-excel', [VehicleController::class, 'exportExcel'])->name('vehicle.exportExcel');
+Route::resource('vehicle', VehicleController::class);
+// end route vehicle
