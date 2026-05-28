@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
             $table->string('name_mechanic');
             $table->char('phone', 15);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

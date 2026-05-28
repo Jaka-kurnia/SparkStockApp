@@ -33,11 +33,7 @@
             <div class="row align-items-center g-4">
                 <div class="col-lg">
                     <div class="container-tight">
-                        <div class="text-center mb-4">
-                            <a href="." class="navbar-brand navbar-brand-autodark"><img
-                                    src="{{ asset('dist/logo/logo.png') }}" alt="SparkStock" class="navbar-brand-image"
-                                    style="width: auto; height: 52px;"></a>
-                        </div>
+                        
                         <div class="card card-md">
                             <div class="card-body">
                                 <h2 class="h2 text-center mb-4">Login to your account</h2>
@@ -55,7 +51,7 @@
 
                                     <div class="mb-3">
                                         <label class="form-label">Email address</label>
-                                        <input type="email" name="email" class="form-control" placeholder="your@email.com"
+                                        <input type="email" name="email" class="form-control" placeholder="your@sparkstock.com"
                                             value="{{ old('email') }}" required autocomplete="off">
                                     </div>
                                     <div class="mb-2">
@@ -67,16 +63,8 @@
                                                 required autocomplete="off">
                                             <span class="input-group-text">
                                                 <a href="#" class="link-secondary" title="Show password"
-                                                    data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        stroke-width="2" stroke="currentColor" fill="none"
-                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                        <path
-                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                                    </svg>
+                                                    data-bs-toggle="tooltip">
+                                                    
                                                 </a>
                                             </span>
                                         </div>
@@ -104,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-lg d-none d-lg-block">
-                    <img src="{{ asset('dist/logo/login.svg') }}" height="300"
+                    <img src="{{ asset('dist/logo/login.svg') }}" height="600" width="auto"
                         class="d-block mx-auto" alt="">
                 </div>
             </div>
