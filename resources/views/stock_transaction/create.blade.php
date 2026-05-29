@@ -88,7 +88,7 @@
                             <label class="form-label">Harga Satuan</label>
                             <div class="input-group input-group-flat">
                                 <span class="input-group-text">Rp</span>
-                                <input min="0" name="price_per_unit" id="price_per_unit"
+                                <input type="number" min="0" name="price_per_unit" id="price_per_unit"
                                     class="form-control @error('price_per_unit') is-invalid @enderror"
                                     value="{{ old('price_per_unit') }}" placeholder="0">
                             </div>
@@ -113,9 +113,9 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label">Catatan Tambahan</label>
-                            <textarea name="note" rows="3" class="form-control @error('note') is-invalid @enderror"
-                                placeholder="Tulis alasan jika melakukan adjustment stok atau informasi tambahan terkait supplier...">{{ old('note') }}</textarea>
-                            @error('note')
+                            <textarea name="notes" rows="3" class="form-control @error('notes') is-invalid @enderror"
+                                placeholder="Tulis alasan jika melakukan adjustment stok atau informasi tambahan terkait supplier...">{{ old('notes') }}</textarea>
+                            @error('notes')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
