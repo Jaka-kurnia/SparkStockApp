@@ -62,9 +62,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('mechanic', MechanicController::class);
     });
 
+    // Route stocktransaction (Requires manage-stock-transaction permission)
     Route::middleware(['permission:manage-stock-transaction'])->group(function () {
-        Route::get('stocktransection/export-pdf', [StokTransactionController::class, 'exportPdf'])->name('stocktransaction.exportPdf');
-        Route::get('mechanic/export-excel', [StokTransactionController::class, 'exportExcel'])->name('stocktransaction.exportExcel');
+        Route::get('stocktransaction/export-pdf', [StokTransactionController::class, 'exportPdf'])->name('stocktransaction.exportPdf');
+        Route::get('stocktransaction/export-excel', [StokTransactionController::class, 'exportExcel'])->name('stocktransaction.exportExcel');
         Route::resource('stocktransaction', StokTransactionController::class);
     });
 

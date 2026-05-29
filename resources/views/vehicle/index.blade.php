@@ -101,7 +101,9 @@
                                 </td>
                             </tr>
                        @empty
-                           
+                           <tr>
+                                <td colspan="7" class="text-center">Tidak ada data Kendaraan</td>
+                           </tr>
                        @endforelse
                 </table>
             </div>

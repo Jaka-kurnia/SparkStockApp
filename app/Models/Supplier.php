@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,8 +14,8 @@ class Supplier extends Model
         'address',
     ];
 
-    public function stoktransactions()
+   public function stokTransactions() : HasMany
     {
-        return $this->hasMany(StokTransaction::class);
+        return $this->hasMany(StokTransaction::class, 'supplier_id', 'id');
     }
 }
