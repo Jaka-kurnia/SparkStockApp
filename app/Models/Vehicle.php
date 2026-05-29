@@ -14,4 +14,9 @@ class Vehicle extends Model
         'merk',
         'color',
     ];
+
+    public function serviceOrders()
+    {
+        return $this->hasMany(ServiceOrder::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceOrderController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\StokTransactionController;
 use App\Http\Controllers\SupplierController;
@@ -71,6 +72,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('stocktransaction/export-pdf', [StokTransactionController::class, 'exportPdf'])->name('stocktransaction.exportPdf');
         Route::get('stocktransaction/export-excel', [StokTransactionController::class, 'exportExcel'])->name('stocktransaction.exportExcel');
         Route::resource('stocktransaction', StokTransactionController::class);
+    });
+
+    // Route serviceorder (Requires manage-service-order permission)
+    Route::middleware(['permission:manage-service-order'])->group(function () {
+        Route::get('serviceorder/export-pdf', [ServiceOrderController::class, 'exportPdf'])->name('serviceorder.exportPdf');
+        Route::get('serviceorder/export-excel', [ServiceOrderController::class, 'exportExcel'])->name('serviceorder.exportExcel');
+        Route::resource('serviceorder', ServiceOrderController::class);
     });
 
 
