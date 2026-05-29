@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\ServiceController;
@@ -16,6 +17,9 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/auth/switch/{role}', [AuthController::class, 'quickSwitch'])->name('auth.switch');
+
+// Route dashboard
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {

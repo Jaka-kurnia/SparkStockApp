@@ -14,10 +14,9 @@
 
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3 pt-lg-2">
-
                 {{-- 1. Dashboard --}}
                 <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} mb-2">
-                    <a class="nav-link py-2.5" href="{{ url('/dashboard') }}">
+                    <a class="nav-link py-2.5" href="{{ route('dashboard.index') }}">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-layout-dashboard" style="font-size: 1.25rem; line-height: 1;"></i>
                         </span>

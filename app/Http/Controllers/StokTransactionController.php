@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StokTransactionExport;
 use App\Models\Sparepart;
 use App\Models\StokTransaction;
 use App\Models\Supplier;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StokTransactionController extends Controller
 {
@@ -139,5 +142,17 @@ class StokTransactionController extends Controller
     public function destroy(StokTransaction $stokTransaction)
     {
         //
+    }
+
+    // public function exportExcel()
+    // {
+    //     return Excel::download(new StokTransactionExport(), 'data-transaksi-stok.xlsx');
+    // }
+
+    public function exportPdf()
+    {
+        $stockTransactions = StokTransaction::with(['sparepart', 'supplier', 'user'])->get();
+        $pdf = Pdf::loadView('stock_transaction.pdf', compact('stockTransactions'));
+        return $pdf->stream('laporan-transaksi-stok.pdf');
     }
 }

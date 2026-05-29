@@ -37,7 +37,7 @@
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="#" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{route('stocktransaction.exportPdf')}}" class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
