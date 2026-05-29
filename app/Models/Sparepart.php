@@ -15,4 +15,9 @@ class Sparepart extends Model
         'stock',
         'location',
     ];
+
+    public function stokTransactions()
+    {
+        return $this->hasMany(StokTransaction::class, 'sparepart_id', 'id');
+    }
 }
