@@ -67,7 +67,6 @@
                             <th>Harga Satuan</th>
                             <th>Total</th>
                             <th>Catatan</th>
-                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,23 +90,8 @@
                                 <td>{{ $item->qty }} Pcs</td>
                                 <td>Rp {{ number_format($item->price_per_unit, 0, ',', '.') }}</td>
                                 <td>Rp {{ number_format($item->total_amount, 0, ',', '.') }}</td>
-                                <td>
-                                    {{ $item->note}}
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-center gap-1">
-                                        <a href="#" class="btn btn-warning btn-sm">
-                                            <i class="ti ti-edit" style="font-size: 18px;"></i>
-                                        </a>
-                                        <form action="#" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data log ini?')">
-                                                <i class="ti ti-trash" style="font-size: 18px;"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                <td class="text-center">
+                                    {{ $item->notes ? $item->notes : '-'}}
                                 </td>
                             </tr>
                         @empty

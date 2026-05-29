@@ -42,55 +42,60 @@ class StokTransactionController extends Controller
     {
 
         $request->validate([
-            'sparepart_id' => 'required|exists:spareparts,id',
             'type' => 'required|in:in,out,adjustment',
-            'qty' => 'required|integer|min:1',
-            'price_per_unit' => 'required|numeric|min:0',
             'supplier_id' => $request->type === 'in' ? 'nullable|exists:suppliers,id' : 'prohibited',
             'notes' => 'nullable|string|max:500',
+            'items' => 'required|array|min:1',
+            'items.*.sparepart_id' => 'required|exists:spareparts,id',
+            'items.*.qty' => 'required|integer|min:1',
+            'items.*.price_per_unit' => 'required|numeric|min:0',
         ], [
-            'sparepart_id.required' => 'Sparepart harus diisi',
-            'sparepart_id.exists' => 'Sparepart tidak ditemukan',
-            'type.required' => 'Type harus diisi',
-            'type.in' => 'Type harus in, out, atau adjustment',
-            'qty.required' => 'Jumlah harus diisi',
-            'qty.integer' => 'Jumlah harus berupa bilangan bulat',
-            'qty.min' => 'Jumlah minimal adalah 1',
-            'price_per_unit.required' => 'Harga per unit harus diisi',
-            'price_per_unit.numeric' => 'Harga per unit harus berupa angka',
-            'price_per_unit.min' => 'Harga per unit minimal adalah 0',
+            'type.required' => 'Tipe transaksi harus diisi',
+            'type.in' => 'Tipe transaksi harus in, out, atau adjustment',
             'supplier_id.exists' => 'Supplier tidak ditemukan',
             'notes.max' => 'Notes maksimal 500 karakter',
+            'items.required' => 'Keranjang barang tidak boleh kosong',
+            'items.min' => 'Keranjang barang minimal berisi 1 barang',
+            'items.*.sparepart_id.required' => 'Sparepart harus diisi pada setiap baris keranjang',
+            'items.*.sparepart_id.exists' => 'Sparepart tidak ditemukan',
+            'items.*.qty.required' => 'Jumlah barang harus diisi',
+            'items.*.qty.min' => 'Jumlah minimal adalah 1',
+            'items.*.price_per_unit.required' => 'Harga per unit harus diisi',
+            'items.*.price_per_unit.numeric' => 'Harga per unit harus berupa angka',
         ]);
 
         DB::beginTransaction();
         try {
-            $sparepart = Sparepart::findOrFail($request->sparepart_id);
-            $qty = $request->qty;
+            foreach ($request->items as $item) {
+                $sparepart = Sparepart::findOrFail($item['sparepart_id']);
+                $qty = $item['qty'];
 
-            if ($request->type === 'in') {
-                $sparepart->stock += $qty;
-            } else {
-                if ($sparepart->stock < $qty) {
-                    return redirect()->back()
-                        ->withInput()
-                        ->with('error', "Stok tidak mencukupi! Stok {$sparepart->name} saat ini hanya {$sparepart->stock} Pcs.");
+                if ($request->type === 'in') {
+                    $sparepart->stock += $qty;
+                } else {
+                    if ($sparepart->stock < $qty) {
+                        return redirect()->back()
+                            ->withInput()
+                            ->with('error', "Stok tidak mencukupi! Stok {$sparepart->name} saat ini hanya {$sparepart->stock} Pcs.");
+                    }
+                    $sparepart->stock -= $qty;
                 }
-                $sparepart->stock -= $qty;
-            }
 
-            $sparepart->save();
-            $totalAmount = $qty * $request->price_per_unit;
-            StokTransaction::create([
-                'sparepart_id'   => $request->sparepart_id,
-                'type'           => $request->type,
-                'qty'            => $qty,
-                'price_per_unit' => $request->price_per_unit,
-                'total_amount'   => $totalAmount,
-                'supplier_id'    => $request->type === 'in' ? $request->supplier_id : null,
-                'notes'          => $request->notes,
-                'user_id'        => auth('web')->user()->id,
-            ]);
+                $sparepart->save();
+                
+                $totalAmount = $qty * $item['price_per_unit'];
+                
+                StokTransaction::create([
+                    'sparepart_id'   => $item['sparepart_id'],
+                    'type'           => $request->type,
+                    'qty'            => $qty,
+                    'price_per_unit' => $item['price_per_unit'],
+                    'total_amount'   => $totalAmount,
+                    'supplier_id'    => $request->type === 'in' ? $request->supplier_id : null,
+                    'note'           => $request->notes,
+                    'user_id'        => auth('web')->user()->id,
+                ]);
+            }
             DB::commit();
 
             return redirect()->route('stocktransaction.index')

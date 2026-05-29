@@ -3,7 +3,7 @@
 @section('page_title', 'Tambah Transaksi Stok')
 @section('content')
     <div class="col-12">
-        <form action="{{ route('stocktransaction.store') }}" method="POST" class="card">
+        <form action="{{ route('stocktransaction.store') }}" method="POST" class="card" id="transaction_form">
             @csrf
 
             <div class="card-header">
@@ -11,14 +11,41 @@
             </div>
 
             <div class="card-body">
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div>
+                                <i class="ti ti-alert-circle" style="font-size: 20px; margin-right: 10px;"></i>
+                            </div>
+                            <div>
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div>
+                                <i class="ti ti-check" style="font-size: 20px; margin-right: 10px;"></i>
+                            </div>
+                            <div>
+                                {{ session('success') }}
+                            </div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                    </div>
+                @endif
+
                 <div class="row row-cards">
 
                     {{-- 1. Pilihan Tipe Transaksi --}}
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Tipe Transaksi</label>
+                            <label class="form-label required">Tipe Transaksi</label>
                             <select name="type" id="transaction_type"
-                                class="form-select @error('type') is-invalid @enderror">
+                                class="form-select @error('type') is-invalid @enderror" required>
                                 <option value="" selected disabled>-- Pilih Tipe Mutasi --</option>
                                 <option value="in" {{ old('type') == 'in' ? 'selected' : '' }}>Barang Masuk (Restock / Pembelian)</option>
                                 <option value="out" {{ old('type') == 'out' ? 'selected' : '' }}>Barang Keluar (Penjualan Langsung)</option>
@@ -30,26 +57,8 @@
                         </div>
                     </div>
 
-                    {{-- 2. Pilihan Suku Cadang (Sparepart) --}}
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Pilih Suku Cadang (Sparepart)</label>
-                            <select name="sparepart_id" class="form-select @error('sparepart_id') is-invalid @enderror">
-                                <option value="" selected disabled>-- Pilih Suku Cadang --</option>
-                                @foreach ($spareparts as $part)
-                                    <option value="{{ $part->id }}" {{ old('sparepart_id') == $part->id ? 'selected' : '' }}>
-                                        {{ $part->sku }} - {{ $part->name }} (Stok Saat Ini: {{ $part->stock }} Pcs)
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('sparepart_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- 3. Pilihan Supplier --}}
-                    <div class="col-md-12" id="supplier_field_wrapper" style="display: none;">
+                    {{-- 2. Pilihan Supplier --}}
+                    <div class="col-md-6" id="supplier_field_wrapper" style="display: none;">
                         <div class="mb-3">
                             <label class="form-label">Pemasok (Supplier)</label>
                             <select name="supplier_id" class="form-select @error('supplier_id') is-invalid @enderror">
@@ -66,113 +75,103 @@
                         </div>
                     </div>
 
-                    {{-- 4. Jumlah Kuantitas Barang (Qty) --}}
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Jumlah (Quantity)</label>
-                            <div class="input-group">
-                                <input type="number" min="1" name="qty" id="qty"
-                                    class="form-control @error('qty') is-invalid @enderror" value="{{ old('qty') }}"
-                                    placeholder="Contoh: 10">
-                                <span class="input-group-text">Pcs</span>
-                            </div>
-                            @error('qty')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- 5. Harga Satuan (Price Per Unit) --}}
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Harga Satuan</label>
-                            <div class="input-group input-group-flat">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" min="0" name="price_per_unit" id="price_per_unit"
-                                    class="form-control @error('price_per_unit') is-invalid @enderror"
-                                    value="{{ old('price_per_unit') }}" placeholder="0">
-                            </div>
-                            @error('price_per_unit')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- 6. Total Kalkulasi Otomatis (Read Only) --}}
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Total Biaya</label>
-                            <div class="input-group input-group-flat">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" id="total_amount_placeholder" class="form-control bg-light" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- 7. Catatan / Deskripsi --}}
+                    {{-- 3. Catatan / Deskripsi Transaksi --}}
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label">Catatan Tambahan</label>
-                            <textarea name="notes" rows="3" class="form-control @error('notes') is-invalid @enderror"
+                            <textarea name="notes" rows="2" class="form-control @error('notes') is-invalid @enderror"
                                 placeholder="Tulis alasan jika melakukan adjustment stok atau informasi tambahan terkait supplier...">{{ old('notes') }}</textarea>
                             @error('notes')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+                </div>
 
+                <hr class="my-4">
+
+                <h4 class="mb-3">Form Tambah Barang</h4>
+                <div class="row row-cards align-items-end mb-4">
+                    <div class="col-md-4">
+                        <div class="mb-3 mb-md-0">
+                            <label class="form-label">Pilih Suku Cadang (Sparepart)</label>
+                            <select id="part_select" class="form-select">
+                                <option value="" selected disabled>-- Pilih Suku Cadang --</option>
+                                @foreach ($spareparts as $part)
+                                    <option value="{{ $part->id }}" data-name="{{ $part->name }}" data-stock="{{ $part->stock }}">
+                                        {{ $part->sku }} - {{ $part->name }} (Stok: {{ $part->stock }} Pcs)
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="mb-3 mb-md-0">
+                            <label class="form-label">Jumlah (Qty)</label>
+                            <div class="input-group">
+                                <input type="number" min="1" id="part_qty" class="form-control" placeholder="0">
+                                <span class="input-group-text">Pcs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="mb-3 mb-md-0">
+                            <label class="form-label">Harga Satuan</label>
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" min="0" id="part_price" class="form-control" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" id="btn_add_cart" class="btn btn-success w-100">
+                            <i class="ti ti-plus" style="margin-right: 5px;"></i> Tambah ke Keranjang
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-vcenter card-table table-striped" id="cart_table">
+                        <thead>
+                            <tr>
+                                <th>Nama Sparepart</th>
+                                <th class="text-center">Jumlah (Qty)</th>
+                                <th class="text-end">Harga Satuan</th>
+                                <th class="text-end">Total Biaya</th>
+                                <th class="w-1"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart_body">
+                            <tr id="empty_cart_row">
+                                <td colspan="5" class="text-center text-muted py-4">Keranjang masih kosong. Tambahkan barang di atas.</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold">Grand Total:</td>
+                                <td class="text-end fw-bold" id="grand_total_text">Rp 0</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    @error('items')
+                        <div class="text-danger mt-2" style="font-size: 87.5%;">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 
             {{-- Bagian Tombol Aksi --}}
-            <div class="card-footer d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
+            <div class="card-footer d-flex justify-content-end gap-2">
+                <a href="{{ route('stocktransaction.index') }}" class="btn btn-link">Batal</a>
+                <button type="submit" class="btn btn-primary" id="btn_submit">
                     Simpan Transaksi
                 </button>
-                <a href="#" class="btn btn-danger">Batal</a>
             </div>
         </form>
     </div>
 
-    {{-- JavaScript Interaktif - Struktur Kurung Sudah Diperbaiki --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const typeSelect = document.getElementById('transaction_type');
-            const supplierWrapper = document.getElementById('supplier_field_wrapper');
-            const qtyInput = document.getElementById('qty');
-            const priceInput = document.getElementById('price_per_unit');
-            const totalPlaceholder = document.getElementById('total_amount_placeholder');
-
-            // A. Logika Muncul/Sembunyi Lapangan Supplier
-            function toggleSupplierField() {
-                if (typeSelect.value === 'in') {
-                    supplierWrapper.style.display = 'block';
-                } else {
-                    supplierWrapper.style.display = 'none';
-                    supplierWrapper.querySelector('select').value = '';
-                }
-            }
-
-            // B. Logika Hitung Total Otomatis di Sisi Klien
-            function calculateTotal() {
-                const qty = parseFloat(qtyInput.value) || 0;
-                const price = parseFloat(priceInput.value) || 0;
-                const total = qty * price;
-
-                // Format angka ke format ribuan rupiah biasa
-                totalPlaceholder.value = total.toLocaleString('id-ID');
-            }
-
-            // Daftarkan Event Listener secara mandiri (terpisah, tidak saling tumpang tindih)
-            typeSelect.addEventListener('change', toggleSupplierField);
-            qtyInput.addEventListener('input', calculateTotal);
-            priceInput.addEventListener('input', calculateTotal);
-
-            // Jalankan fungsi di awal untuk mengantisipasi old value setelah validasi error
-            toggleSupplierField();
-            calculateTotal();
-        }); // Tutup event listener DOMContentLoaded yang benar
-    </script>
-
-    
+@include('stock_transaction.script')
 @endsection
