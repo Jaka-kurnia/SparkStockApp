@@ -17,4 +17,9 @@ class Mechanic extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function serviceOrders()
+    {
+        return $this->hasMany(ServiceOrder::class);
+    }
 }

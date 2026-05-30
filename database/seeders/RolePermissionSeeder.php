@@ -27,7 +27,8 @@ class RolePermissionSeeder extends Seeder
             'manage-mechanic',
             'manage-services',
             'manage-permissions',
-            'manage-stock-transaction'
+            'manage-stock-transaction',
+            'manage-service-order'
         ];
 
         foreach ($permissions as $permissionName) {

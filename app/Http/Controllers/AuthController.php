@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('supplier.index');
+            return redirect()->route('dashboard.index');
         }
         return view('auth.login');
     }
@@ -36,7 +36,7 @@ class AuthController extends Controller
             /** @var \App\Models\User $user */
             $user = Auth::user();
             if ($user && $user->hasRole('owner')) {
-                return redirect()->route('role-permissions.index')->with('success', 'Logged in as Owner.');
+                return redirect()->route('dashboard.index')->with('success', 'Logged in as Owner.');
             }
             
             return redirect()->route('supplier.index')->with('success', 'Logged in successfully.');

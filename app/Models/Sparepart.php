@@ -20,4 +20,6 @@ class Sparepart extends Model
     {
         return $this->hasMany(StokTransaction::class, 'sparepart_id', 'id');
     }
+
+    
 }

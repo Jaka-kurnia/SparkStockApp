@@ -14,10 +14,9 @@
 
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav py-3 pt-lg-2">
-
                 {{-- 1. Dashboard --}}
                 <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} mb-2">
-                    <a class="nav-link py-2.5" href="{{ url('/dashboard') }}">
+                    <a class="nav-link py-2.5" href="{{ route('dashboard.index') }}">
                         <span class="nav-link-icon d-flex align-items-center justify-content-center">
                             <i class="ti ti-layout-dashboard" style="font-size: 1.25rem; line-height: 1;"></i>
                         </span>
@@ -120,25 +119,6 @@
                 @endcanany
                 {{-- End Master Operasional --}}
 
-                {{-- Transaksi Dropdown --}}
-                {{-- <li class="nav-item dropdown mb-2">
-                    <a class="nav-link dropdown-toggle py-2.5" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="nav-link-icon d-flex align-items-center justify-content-center">
-                            <i class="ti ti-database" style="font-size: 1.25rem; line-height: 1;"></i>
-                        </span>
-                        <span class="nav-link-title ms-2">
-                            Manajemen Antrean
-                        </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-menu-columns">
-                            <div class="dropdown-menu-column">
-
-                            </div>
-                        </div>
-                    </div>
-                </li> --}}
-
 
                 @can('manage-services')
                     <li class="nav-item dropdown {{ request()->routeIs(['service.*']) ? 'active show' : '' }} mb-2">
@@ -160,6 +140,32 @@
                                         href="{{ route('stocktransaction.index') }}">
                                         <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
                                         Stock Transaction
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                @endcan
+
+                @can('manage-service-order')
+                    <li class="nav-item dropdown {{ request()->routeIs(['service.*']) ? 'active show' : '' }} mb-2">
+                        <a class="nav-link dropdown-toggle py-2.5 {{ request()->routeIs(['service.*']) ? 'show' : '' }}"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="{{ request()->routeIs(['service.*']) ? 'true' : 'false' }}">
+                            <span class="nav-link-icon d-flex align-items-center justify-content-center">
+                                <i class="ti ti-database" style="font-size: 1.25rem; line-height: 1;"></i>
+                            </span>
+                            <span class="nav-link-title ms-2">
+                                DataTransaction
+                            </span>
+                        </a>
+                        <div class="dropdown-menu {{ request()->routeIs(['service.*', 'serviceorder.*']) ? 'show' : '' }}">
+                            <div class="dropdown-menu-columns">
+                                <div class="dropdown-menu-column">
+                                    <a class="dropdown-item py-2 {{ request()->routeIs('serviceorder.*') ? 'active' : '' }}"
+                                        href="{{ route('serviceorder.index') }}">
+                                        <i class="ti ti-point" style="font-size: 1.1rem; line-height: 1;"></i>
+                                        Service Orders
                                     </a>
                                 </div>
                             </div>

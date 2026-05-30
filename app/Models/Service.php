@@ -13,4 +13,9 @@ class Service extends Model
         'is_service',
         'description',
     ];
+
+    public function serviceOrderServices()
+    {
+        return $this->hasMany(ServiceOrderService::class, 'service_id', 'id');
+    }
 }
