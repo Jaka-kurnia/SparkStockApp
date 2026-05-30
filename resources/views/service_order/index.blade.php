@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Service Order</h3>
-                <a href="#" class="btn btn-primary">
+                <a href="{{route('serviceorder.create')}}" class="btn btn-primary">
                     <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
                     Tambah Service Order
                 </a>
@@ -75,31 +75,123 @@
                             <th>Grand Total</th>
                             <th>Metode Bayar</th>
                             <th>Status Bayar</th>
-                            <th>Metode Pembayaran</th>
-                            <th>Status Pembayaran</th>
                             <th>Status Midtrans</th>
-                            <th>Di Bayar Pada</th>
+                            <th>Dibayar Pada</th>
                             <th>Catatan</th>
+                            <th class="w-1 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        @forelse ($serviceOrders as $item)
+                            <tr>
+                                <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <span class="badge bg-secondary text-white">{{ $item->kode_queue }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary text-white">{{ $item->kode_order }}</span>
+                                </td>
+                                <td>{{ $item->service_date ? $item->service_date->format('d-m-Y') : '-' }}</td>
+                                <td>{{ $item->customer->name ?? '-' }}</td>
+                                <td>{{ $item->mechanic->name_mechanic ?? '-' }}</td>
+                                <td>
+                                    <span class="text-truncate d-inline-block" style="max-width: 150px;"
+                                        title="{{ $item->keluhan }}">
+                                        {{ $item->keluhan ?? '-' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    @if ($item->status == 'pending')
+                                        <span class="badge bg-warning-lt">Pending</span>
+                                    @elseif($item->status == 'in_progress')
+                                        <span class="badge bg-info-lt">In Progress</span>
+                                    @elseif($item->status == 'completed')
+                                        <span class="badge bg-success-lt">Completed</span>
+                                    @elseif($item->status == 'paid')
+                                        <span class="badge bg-purple-lt">Paid</span>
+                                    @elseif($item->status == 'closed')
+                                        <span class="badge bg-secondary-lt">Closed</span>
+                                    @else
+                                        <span class="badge bg-danger-lt">Cancelled</span>
+                                    @endif
+                                </td>
+                                <td>Rp {{ number_format($item->total_service, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item->total_part, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item->discount, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item->tax, 0, ',', '.') }}</td>
+                                <td><strong>Rp {{ number_format($item->grand_total, 0, ',', '.') }}</strong></td>
+                                <td>
+                                    @if ($item->payment_method == 'cash')
+                                        <span class="badge bg-success-lt">Cash</span>
+                                    @elseif($item->payment_method == 'midtrans')
+                                        <span class="badge bg-info-lt">Midtrans</span>
+                                    @elseif($item->payment_method == 'transfer')
+                                        <span class="badge bg-blue-lt">Transfer</span>
+                                    @elseif($item->payment_method == 'qris')
+                                        <span class="badge bg-purple-lt">QRIS</span>
+                                    @elseif($item->payment_method == 'hutang')
+                                        <span class="badge bg-danger-lt">Hutang</span>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->payment_status == 'unpaid')
+                                        <span class="badge bg-danger-lt">Unpaid</span>
+                                    @elseif($item->payment_status == 'paid')
+                                        <span class="badge bg-success-lt">Paid</span>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->midtrans_status == 'pending')
+                                        <span class="badge bg-warning-lt">Pending</span>
+                                    @elseif($item->midtrans_status == 'paid')
+                                        <span class="badge bg-success-lt">Paid</span>
+                                    @elseif($item->midtrans_status == 'failed')
+                                        <span class="badge bg-danger-lt">Failed</span>
+                                    @elseif($item->midtrans_status == 'expired')
+                                        <span class="badge bg-secondary-lt">Expired</span>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $item->paid_at ? $item->paid_at->format('d-m-Y H:i') : '-' }}</td>
+                                <td>
+                                    <span class="text-secondary text-truncate d-inline-block" style="max-width: 120px;"
+                                        title="{{ $item->note }}">
+                                        {{ $item->note ?? '-' }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-list flex-nowrap justify-content-center">
+                                        <a href="#" class="btn btn-sm btn-outline-primary" title="Detail">
+                                            <i class="ti ti-eye" style="font-size: 16px;"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-warning" title="Edit">
+                                            <i class="ti ti-edit" style="font-size: 16px;"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="21" class="text-center text-muted py-4">Belum ada data Service Order.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
 
-            {{-- Bagian Pagination Terintegrasi Laravel --}}
+            {{-- Bagian Pagination --}}
             <div class="card-footer d-flex align-items-center justify-content-between">
-                {{-- <p class="m-0 text-secondary">
-                    Showing <span>{{ $stockTransactions->firstItem() ?? 0 }}</span> to
-                    <span>{{ $stockTransactions->lastItem() ?? 0 }}</span> of <span>{{ $stockTransactions->total() ?? 0 }}</span> entries
+                <p class="m-0 text-secondary">
+                    Total: <span>{{ $serviceOrders->count() }}</span> entries
                 </p>
-
-                <div class="m-0 ms-auto">
-                    {{ $stockTransactions->links() }}
-                </div> --}}
             </div>
             {{-- End pagination --}}
+            </div>
         </div>
-    </div>
-
-@endsection
+    @endsection

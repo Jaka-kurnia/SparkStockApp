@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\ServiceOrderDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ServiceOrder extends Model
 {
@@ -66,6 +65,11 @@ class ServiceOrder extends Model
     public function mechanic(): BelongsTo
     {
         return $this->belongsTo(Mechanic::class, 'mechanic_id');
+    }
+
+    public function ServiceOrderDetail()
+    {
+        return $this->hasMany(ServiceOrderDetail::class, 'service_order_id');
     }
 
     /**
