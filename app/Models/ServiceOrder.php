@@ -77,5 +77,9 @@ class ServiceOrder extends Model
         return $this->hasMany(Payment::class, 'service_order_id');
     }
 
-    
+
+    public function midtransTransaction()
+    {
+        return $this->hasOne(MidtransTransaction::class); 
+    }
 }

@@ -131,6 +131,11 @@ class ServiceOrderController extends Controller
             }
         }
 
+        if (in_array($request->payment_method, ['credit', 'debit', 'midtrans'])) {
+            return redirect()->route('service-orders.show', $serviceOrder->id)
+                             ->with('success', 'Service Order berhasil dibuat! Silakan selesaikan pembayaran.');
+        }
+
         return redirect()->route('serviceorder.index')->with('success', 'Service Order berhasil dibuat!');
     }
 

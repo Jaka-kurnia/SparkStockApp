@@ -170,6 +170,17 @@
                 <h4 class="mb-3">Rincian Tambahan</h4>
 
                 <div class="row row-cards">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label required">Total Sparepart</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" min="0" name="total_part" id="total_part" class="form-control @error('total_part') is-invalid @enderror" 
+                                    value="{{ old('total_part', 0) }}" required>
+                            </div>
+                            @error('total_part') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
 
                     <div class="col-md-3">
                         <div class="mb-3">

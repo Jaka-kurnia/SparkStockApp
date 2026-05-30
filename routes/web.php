@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MechanicController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceOrderController;
@@ -86,5 +87,12 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:owner'])->group(function () {
         Route::get('/permissions', [RolePermissionController::class, 'index'])->name('role-permissions.index');
         Route::post('/permissions/toggle', [RolePermissionController::class, 'toggle'])->name('role-permissions.toggle');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/service-orders/{order}', [PaymentController::class, 'show'])->name('service-orders.show');
+    // snap token midtrans
+    Route::post('/payment/snap-token/{order}', [PaymentController::class, 'getSnapToken'])->name('payment.snap-token');
+    Route::get('/payment/finished', [PaymentController::class, 'paymentFinished'])->name('payment.finished');
     });
 });
