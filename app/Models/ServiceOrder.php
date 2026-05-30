@@ -72,37 +72,10 @@ class ServiceOrder extends Model
         return $this->hasMany(ServiceOrderDetail::class, 'service_order_id');
     }
 
-    /**
-     * Hubungan ke item Jasa Servis yang digunakan (Detail Jasa)
-     * Satu order bisa memiliki banyak jasa servis (Many-to-Many via tabel pivot atau HasMany ke tabel detail)
-     */
-    // public function orderServices(): HasMany
-    // {
-    //     return $this->hasMany(ServiceOrderService::class, 'service_order_id');
-    // }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'service_order_id');
+    }
 
-    /**
-     * Hubungan ke item Sparepart yang digunakan (Detail Sparepart)
-     */
-    // public function orderDetails(): HasMany
-    // {
-    //     return $this->hasMany(ServiceOrderDetail::class, 'service_order_id');
-    // }
-
-    /**
-     * Hubungan ke data Riwayat Pembayaran Manual/Kasir
-     */
-    // public function payments(): HasMany
-    // {
-    //     return $this->hasMany(Payment::class, 'service_order_id');
-    // }
-
-    /**
-     * Hubungan ke Transaksi Gateway Midtrans (One-to-One)
-     * Karena di rancangan DBML Anda: midtrans_transactions.service_order_id [unique]
-     */
-    // public function midtransTransaction(): HasOne
-    // {
-    //     return $this->hasOne(MidtransTransaction::class, 'service_order_id');
-    // }
+    
 }
