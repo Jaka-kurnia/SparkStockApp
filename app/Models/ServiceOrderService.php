@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceOrderDetail extends Model
+class ServiceOrderService extends Model
 {
     protected $fillable = [
         'service_order_id',
-        'sparepart_id',
+        'service_id',
         'quantity',
         'price',
         'subtotal',
@@ -17,5 +17,10 @@ class ServiceOrderDetail extends Model
     public function serviceOrder()
     {
         return $this->belongsTo(ServiceOrder::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }

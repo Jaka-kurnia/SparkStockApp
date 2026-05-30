@@ -57,6 +57,10 @@ class ServiceOrderController extends Controller
             'services.*.service_id' => 'required_with:services|exists:services,id',
             'services.*.price' => 'required_with:services|numeric|min:0',
             'services.*.qty' => 'required_with:services|integer|min:1',
+            'spareparts' => 'nullable|array',
+            'spareparts.*.sparepart_id' => 'required_with:spareparts|exists:spareparts,id',
+            'spareparts.*.price' => 'required_with:spareparts|numeric|min:0',
+            'spareparts.*.qty' => 'required_with:spareparts|integer|min:1',
         ]);
 
         $totalService = $request->total_service;
@@ -98,13 +102,32 @@ class ServiceOrderController extends Controller
         if ($request->has('services')) {
             foreach ($request->services as $service) {
                 $subtotal = $service['price'] * $service['qty'];
-                ServiceOrderDetail::create([
+                \App\Models\ServiceOrderService::create([
                     'service_order_id' => $serviceOrder->id,
                     'service_id' => $service['service_id'],
                     'quantity' => $service['qty'],
                     'price' => $service['price'],
                     'subtotal' => $subtotal,
                 ]);
+            }
+        }
+
+        if ($request->has('spareparts')) {
+            foreach ($request->spareparts as $part) {
+                $subtotal = $part['price'] * $part['qty'];
+                ServiceOrderDetail::create([
+                    'service_order_id' => $serviceOrder->id,
+                    'sparepart_id' => $part['sparepart_id'],
+                    'quantity' => $part['qty'],
+                    'price' => $part['price'],
+                    'subtotal' => $subtotal,
+                ]);
+                
+                // Kurangi stok sparepart
+                $sparepart = \App\Models\Sparepart::find($part['sparepart_id']);
+                if ($sparepart) {
+                    $sparepart->decrement('stock', $part['qty']);
+                }
             }
         }
 

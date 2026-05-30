@@ -129,20 +129,47 @@
                     </table>
                 </div>
 
+                <hr class="my-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Daftar Suku Cadang (Sparepart)</h4>
+                    <button type="button" class="btn btn-sm btn-success" id="btn_add_sparepart">
+                        <i class="ti ti-plus"></i> Tambah Sparepart
+                    </button>
+                </div>
+                
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered table-vcenter" id="sparepart_table">
+                        <thead>
+                            <tr>
+                                <th>Sparepart</th>
+                                <th style="width: 15%">Harga</th>
+                                <th style="width: 15%">Qty</th>
+                                <th style="width: 20%">Subtotal</th>
+                                <th style="width: 5%">Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sparepart_cart_body">
+                            <!-- JS akan mengisi ini -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3" class="text-end">Total Sparepart:</th>
+                                <th>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" id="total_part_display" class="form-control fw-bold bg-light" readonly value="0">
+                                        <input type="hidden" name="total_part" id="total_part" value="0">
+                                    </div>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
                 <h4 class="mb-3">Rincian Tambahan</h4>
 
                 <div class="row row-cards">
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <label class="form-label required">Total Sparepart</label>
-                            <div class="input-group">
-                                <span class="input-group-text">Rp</span>
-                                <input type="number" min="0" name="total_part" id="total_part" class="form-control @error('total_part') is-invalid @enderror" 
-                                    value="{{ old('total_part', 0) }}" required>
-                            </div>
-                            @error('total_part') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-                    </div>
 
                     <div class="col-md-3">
                         <div class="mb-3">
