@@ -3,20 +3,19 @@
             // Master Data (Injected from Controller)
             const masterServices = @json($services);
             const masterSpareparts = @json($spareparts);
-            
+
             // Cart Elements - Services
             const btnAddService = document.getElementById('btn_add_service');
             const serviceCartBody = document.getElementById('service_cart_body');
             const totalServiceInput = document.getElementById('total_service');
             const totalServiceDisplay = document.getElementById('total_service_display');
-            
+
             // Cart Elements - Spareparts
             const btnAddSparepart = document.getElementById('btn_add_sparepart');
             const sparepartCartBody = document.getElementById('sparepart_cart_body');
             const totalPartInput = document.getElementById('total_part');
             const totalPartDisplay = document.getElementById('total_part_display');
 
-            // Summary Elements
             const inputDiscount = document.getElementById('discount');
             const inputTax = document.getElementById('tax');
             const displayGrandTotal = document.getElementById('grand_total');
@@ -29,7 +28,8 @@
             function renderServiceOptions() {
                 let options = '<option value="" selected disabled>-- Pilih Jasa --</option>';
                 masterServices.forEach(srv => {
-                    options += `<option value="${srv.id}" data-price="${srv.price}">${srv.complaint_name} (Rp ${parseFloat(srv.price).toLocaleString('id-ID')})</option>`;
+                    options +=
+                        `<option value="${srv.id}" data-price="${srv.price}">${srv.complaint_name} (Rp ${parseFloat(srv.price).toLocaleString('id-ID')})</option>`;
                 });
                 return options;
             }
@@ -111,7 +111,8 @@
             function renderSparepartOptions() {
                 let options = '<option value="" selected disabled>-- Pilih Suku Cadang --</option>';
                 masterSpareparts.forEach(part => {
-                    options += `<option value="${part.id}" data-price="${part.price}" data-stock="${part.stock}">${part.name} (Stok: ${part.stock} | Rp ${parseFloat(part.price).toLocaleString('id-ID')})</option>`;
+                    options +=
+                        `<option value="${part.id}" data-price="${part.selling_price}" data-stock="${part.stock}">${part.name} (Stok: ${part.stock} | Rp ${parseFloat(part.selling_price).toLocaleString('id-ID')})</option>`;
                 });
                 return options;
             }
@@ -159,14 +160,14 @@
                     const selectedOption = select.options[select.selectedIndex];
                     const price = selectedOption.getAttribute('data-price') || 0;
                     const stock = parseInt(selectedOption.getAttribute('data-stock') || 0);
-                    
+
                     priceInput.value = price;
-                    qtyInput.max = stock; // set max quantity based on stock
-                    
+                    qtyInput.max = stock; 
+
                     if (parseInt(qtyInput.value) > stock) {
                         qtyInput.value = stock;
                     }
-                    
+
                     calculateSparepartSubtotal();
                 });
 
@@ -204,7 +205,7 @@
                 const part = parseFloat(totalPartInput.value) || 0;
                 const discount = parseFloat(inputDiscount.value) || 0;
                 const tax = parseFloat(inputTax.value) || 0;
-                
+
                 const grand = (service + part) - discount + tax;
                 displayGrandTotal.value = grand.toLocaleString('id-ID');
             }

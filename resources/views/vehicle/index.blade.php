@@ -82,7 +82,7 @@
                                 <td><a href="#" class="text-reset">{{ $item->plate_number }}</a></td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->year }}</td>
-                                <td>{{ $item->brand }}</td>
+                                <td>{{ $item->merk }}</td>
                                 <td>{{ $item->color }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
@@ -102,8 +102,11 @@
                             </tr>
                        @empty
                            <tr>
-                                <td colspan="7" class="text-center">Tidak ada data Kendaraan</td>
-                           </tr>
+                                <td colspan="21" class="text-center text-danger py-4">
+                                    <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                    Data Kendaraan belum tersedia.
+                                </td>
+                            </tr>
                        @endforelse
                 </table>
             </div>

@@ -73,8 +73,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($sparepart as $item)
-                            <tr>
+                        @forelse ($sparepart as $item)
+                             <tr>
                                 <td>
                                     <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice">
                                 </td>
@@ -99,7 +99,16 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                    
+                        @empty
+                      <tr>
+                            <td colspan="10" class="text-center text-danger py-4">
+                                <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                Data Sparepart belum tersedia.
+                            </td>
+                        </tr>
+                        @endforelse
+                           
                     </tbody>
                 </table>
             </div>
