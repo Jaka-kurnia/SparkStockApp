@@ -46,7 +46,7 @@
                                 <option value="" selected disabled>-- Pilih Kendaraan --</option>
                                 @foreach ($vehicles as $veh)
                                     <option value="{{ $veh->id }}" {{ old('vehicle_id') == $veh->id ? 'selected' : '' }}>
-                                        {{ $veh->plate_number }} - {{ $veh->brand }} {{ $veh->model }}
+                                        {{ $veh->plate_number }} - {{ $veh->merk }} {{ $veh->model }}
                                     </option>
                                 @endforeach
                             </select>
@@ -172,6 +172,7 @@
                 <div class="row row-cards">
                     <div class="col-md-3">
                         <div class="mb-3">
+                        
                             <label class="form-label required">Total Sparepart</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>

@@ -39,13 +39,15 @@
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="{{route('customer.export.Pdf')}}" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('customer.export.Pdf') }}"
+                                class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
 
                             {{-- Excel --}}
-                            <a href="{{route('customer.export.Excel')}}" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('customer.export.Excel') }}"
+                                class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-excel" style="font-size: 18px"></i>
                                 <span>Export Excel</span>
                             </a>
@@ -71,9 +73,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @forelse ($customer as $item)
-                           <tr>
-                            <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
+                        @forelse ($customer as $item)
+                            <tr>
+                                <td><input class="form-check-input m-0 align-middle" type="checkbox"></td>
                                 {{-- Penomoran yang benar untuk pagination --}}
                                 <td><span
                                         class="text-secondary">{{ ($customer->currentPage() - 1) * $customer->perPage() + $loop->iteration }}</span>
@@ -87,7 +89,7 @@
                                         <a href="{{ route('customer.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                             <i class="ti ti-edit" style="font-size: 18px;"></i>
                                         </a>
-                                        <form action="{{route('customer.destroy', $item->id)}}" method="POST">
+                                        <form action="{{ route('customer.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"
@@ -97,12 +99,15 @@
                                         </form>
                                     </div>
                                 </td>
-                           </tr>
-                       @empty
-                           <tr>
-                            <td colspan="7" class="text-center">Data Customer Tidak Ada</td>
-                           </tr>
-                       @endforelse
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-danger py-4">
+                                    <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                    Data customer belum tersedia.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

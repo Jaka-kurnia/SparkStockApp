@@ -39,13 +39,15 @@
 
                         <div class="d-flex align-items-center gap-2">
                             {{-- PDF --}}
-                            <a href="{{route('supplier.exportPdf')}}" class="btn btn-danger d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('supplier.exportPdf') }}"
+                                class="btn btn-danger d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-type-pdf" style="font-size: 18px"></i>
                                 <span>Export PDF</span>
                             </a>
 
                             {{-- Excel --}}
-                            <a href="{{route('supplier.exportExcel')}}" class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
+                            <a href="{{ route('supplier.exportExcel') }}"
+                                class="btn btn-success btn-md d-inline-flex align-items-center gap-2">
                                 <i class="ti ti-file-excel" style="font-size: 18px"></i>
                                 <span>Export Excel</span>
                             </a>
@@ -100,7 +102,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">Data Supplier Tidak Ada</td>
+                                <td colspan="21" class="text-center text-danger py-4">
+                                    <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                    Data Supplier belum tersedia.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

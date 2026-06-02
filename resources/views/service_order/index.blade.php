@@ -178,7 +178,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="21" class="text-center text-muted py-4">Belum ada data Service Order.</td>
+                                <td colspan="21" class="text-center text-danger py-4">
+                                    <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                    Data Service Order belum tersedia.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
