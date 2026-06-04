@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Service Order</h3>
-                <a href="{{route('serviceorder.create')}}" class="btn btn-primary">
+                <a href="{{ route('serviceorder.create') }}" class="btn btn-primary">
                     <i class="ti ti-file-plus" style="font-size: 18px; padding-right:10px;"></i>
                     Tambah Service Order
                 </a>
@@ -70,12 +70,12 @@
                             <th>Status Servis</th>
                             <th>Total Jasa</th>
                             <th>Total Sparepart</th>
-                            <th>Diskon</th>
-                            <th>Pajak</th>
+                            {{-- <th>Diskon</th>
+                            <th>Pajak</th> --}}
                             <th>Grand Total</th>
                             <th>Metode Bayar</th>
                             <th>Status Bayar</th>
-                            <th>Status Midtrans</th>
+                            {{-- <th>Status Midtrans</th> --}}
                             <th>Dibayar Pada</th>
                             <th>Catatan</th>
                             <th class="w-1 text-center">Aksi</th>
@@ -103,49 +103,45 @@
                                 </td>
                                 <td>
                                     @if ($item->status == 'pending')
-                                        <span class="badge bg-warning-lt">Pending</span>
+                                        <span class="badge bg-warning text-white">Pending</span>
                                     @elseif($item->status == 'in_progress')
-                                        <span class="badge bg-info-lt">In Progress</span>
+                                        <span class="badge bg-info text-white">In Progress</span>
                                     @elseif($item->status == 'completed')
-                                        <span class="badge bg-success-lt">Completed</span>
+                                        <span class="badge bg-success text-white">Completed</span>
                                     @elseif($item->status == 'paid')
-                                        <span class="badge bg-purple-lt">Paid</span>
+                                        <span class="badge bg-purple text-white">Paid</span>
                                     @elseif($item->status == 'closed')
-                                        <span class="badge bg-secondary-lt">Closed</span>
+                                        <span class="badge bg-secondary text-white">Closed</span>
                                     @else
-                                        <span class="badge bg-danger-lt">Cancelled</span>
+                                        <span class="badge bg-danger text-white">Cancelled</span>
                                     @endif
                                 </td>
                                 <td>Rp {{ number_format($item->total_service, 0, ',', '.') }}</td>
                                 <td>Rp {{ number_format($item->total_part, 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($item->discount, 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($item->tax, 0, ',', '.') }}</td>
+                                {{-- <td>Rp {{ number_format($item->discount, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item->tax, 0, ',', '.') }}</td> --}}
                                 <td><strong>Rp {{ number_format($item->grand_total, 0, ',', '.') }}</strong></td>
                                 <td>
                                     @if ($item->payment_method == 'cash')
-                                        <span class="badge bg-success-lt">Cash</span>
+                                        <span class="badge bg-success text-white">Cash</span>
                                     @elseif($item->payment_method == 'midtrans')
-                                        <span class="badge bg-info-lt">Midtrans</span>
+                                        <span class="badge bg-info text-white">Midtrans</span>
                                     @elseif($item->payment_method == 'transfer')
                                         <span class="badge bg-blue-lt">Transfer</span>
-                                    @elseif($item->payment_method == 'qris')
-                                        <span class="badge bg-purple-lt">QRIS</span>
-                                    @elseif($item->payment_method == 'hutang')
-                                        <span class="badge bg-danger-lt">Hutang</span>
                                     @else
                                         -
                                     @endif
                                 </td>
                                 <td>
                                     @if ($item->payment_status == 'unpaid')
-                                        <span class="badge bg-danger-lt">Unpaid</span>
+                                        <span class="badge bg-danger text-white">Unpaid</span>
                                     @elseif($item->payment_status == 'paid')
-                                        <span class="badge bg-success-lt">Paid</span>
+                                        <span class="badge bg-success text-white">Paid</span>
                                     @else
                                         -
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if ($item->midtrans_status == 'pending')
                                         <span class="badge bg-warning-lt">Pending</span>
                                     @elseif($item->midtrans_status == 'paid')
@@ -157,8 +153,8 @@
                                     @else
                                         -
                                     @endif
-                                </td>
-                                <td>{{ $item->paid_at ? $item->paid_at->format('d-m-Y H:i') : '-' }}</td>
+                                </td> --}}
+                                <td>{{ $item->service_date ? $item->service_date->format('d-m-Y') : '-' }}</td>
                                 <td>
                                     <span class="text-secondary text-truncate d-inline-block" style="max-width: 120px;"
                                         title="{{ $item->note }}">
@@ -191,10 +187,17 @@
             {{-- Bagian Pagination --}}
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <p class="m-0 text-secondary">
-                    Total: <span>{{ $serviceOrders->count() }}</span> entries
+                    Showing <span>{{ $serviceOrders->firstItem() ?? 0 }}</span> to
+                    <span>{{ $serviceOrders->lastItem() ?? 0 }}</span> of <span>{{ $serviceOrders->total() }}</span>
+                    entries
                 </p>
+
+                {{-- Memanggil link pagination bawaan Laravel yang otomatis kompatibel dengan Bootstrap/Tabler --}}
+                <div class="m-0 ms-auto">
+                    {{ $serviceOrders->links() }}
+                </div>
             </div>
             {{-- End pagination --}}
-            </div>
         </div>
-    @endsection
+    </div>
+@endsection
