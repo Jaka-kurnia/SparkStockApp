@@ -15,7 +15,7 @@
                                     class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                     placeholder="Input Nama Customer">
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                     class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
                                     placeholder="Input Email Customer">
                                 @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                     class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}"
                                     placeholder="Input Nomor Telepon">
                                 @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
                                     placeholder="Input Alamat Lengkap">{{ old('address') }}</textarea>
                                 @error('address')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>

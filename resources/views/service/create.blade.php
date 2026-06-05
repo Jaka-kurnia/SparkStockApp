@@ -22,7 +22,7 @@
                                 <input type="text" class="form-control @error('code') is-invalid @enderror" 
                                     name="code" value="{{ old('code') }}" placeholder="Contoh: SRV001">
                                 @error('code')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control @error('complaint_name') is-invalid @enderror" 
                                     name="complaint_name" value="{{ old('complaint_name') }}" placeholder="Masukkan nama service">
                                 @error('complaint_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <input  class="form-control @error('price') is-invalid @enderror" 
                                         name="price" value="{{ old('price') }}" placeholder="0">
                                     @error('price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                     <option value="0" {{ old('is_service') == '0' ? 'selected' : '' }}>Tidak Aktif</option>
                                 </select>
                                 @error('is_service')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 <textarea rows="4" class="form-control @error('description') is-invalid @enderror" 
                                     name="description" placeholder="Tambahkan keterangan deskripsi jika ada...">{{ old('description') }}</textarea>
                                 @error('description')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                {{-- Bagian Footer Tombol Aksi sesuai standar Tabler --}}
+         
                 <div class="card-footer text-end">
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">

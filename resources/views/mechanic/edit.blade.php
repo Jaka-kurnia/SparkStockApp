@@ -28,7 +28,7 @@
                                     @endforeach
                                 </select>
                                 @error('user_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                     name="name_mechanic" value="{{ old('name_mechanic', $mechanic->name_mechanic) }}"
                                     placeholder="Input Nama Mekanik">
                                 @error('name_mechanic')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                     name="phone" value="{{ old('phone', $mechanic->phone) }}" placeholder="Input No Telepon">
                                 @error('phone')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                     <option value="0" {{ (old('is_active', $mechanic->is_active) == '0') ? 'selected' : '' }}>Nonaktif</option>
                                 </select>
                                 @error('is_active')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>

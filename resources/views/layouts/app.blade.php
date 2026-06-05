@@ -55,7 +55,7 @@
             @if ($errors->any())
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Validasi Gagal',
+                    title: 'Form tidak boleh kosong',
                     text: "{{ $errors->first() }}",
                     confirmButtonColor: '#3085d6'
                 });

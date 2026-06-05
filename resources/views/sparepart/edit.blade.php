@@ -16,7 +16,7 @@
                                 <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku"
                                     value="{{ old('sku', $sparepart->sku) }}" placeholder="Input SKU Sparepart">
                                 @error('sku')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                     name="name" value="{{ old('name', $sparepart->name) }}"
                                     placeholder="Input Nama Sparepart">
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                     name="brand" value="{{ old('brand', $sparepart->brand) }}"
                                     placeholder="Input Merek/Brand">
                                 @error('brand')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <input class="form-control @error('stock') is-invalid @enderror" name="stock"
                                     value="{{ old('stock', $sparepart->stock) }}" placeholder="Input Jumlah Stok">
                                 @error('stock')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                         name="purchase_price"
                                         value="{{ old('purchase_price', $sparepart->purchase_price) }}" placeholder="0">
                                     @error('purchase_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                         name="selling_price" value="{{ old('selling_price', $sparepart->selling_price) }}"
                                         placeholder="0">
                                     @error('selling_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                     name="location" value="{{ old('location', $sparepart->location) }}"
                                     placeholder="Contoh: Rak A-01">
                                 @error('location')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>

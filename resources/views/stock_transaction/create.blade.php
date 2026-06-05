@@ -52,7 +52,7 @@
                                 <option value="adjustment" {{ old('type') == 'adjustment' ? 'selected' : '' }}>Adjustment (Stock Opname)</option>
                             </select>
                             @error('type')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                             @enderror
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                 @endforeach
                             </select>
                             @error('supplier_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                             @enderror
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <textarea name="notes" rows="2" class="form-control @error('notes') is-invalid @enderror"
                                 placeholder="Tulis alasan jika melakukan adjustment stok atau informasi tambahan terkait supplier...">{{ old('notes') }}</textarea>
                             @error('notes')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                             @enderror
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                         </tfoot>
                     </table>
                     @error('items')
-                        <div class="text-danger mt-2" style="font-size: 87.5%;">{{ $message }}</div>
+                        {{-- <div class="text-danger mt-2" style="font-size: 87.5%;">{{ $message }}</div> --}}
                     @enderror
                 </div>
             </div>

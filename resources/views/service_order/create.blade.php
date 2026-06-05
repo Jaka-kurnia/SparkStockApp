@@ -34,7 +34,9 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('customer_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('customer_id') 
+                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                             @enderror
                         </div>
                     </div>
 
@@ -50,7 +52,9 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('vehicle_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('vehicle_id') 
+                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                             @enderror
                         </div>
                     </div>
 
@@ -66,7 +70,9 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('mechanic_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('mechanic_id') 
+                            {{-- <div class="invalid-feedback">{{ $message }}</div>  --}}
+                            @enderror
                         </div>
                     </div>
 
@@ -76,7 +82,9 @@
                             <label class="form-label required">Tanggal Servis</label>
                             <input type="date" name="service_date" class="form-control @error('service_date') is-invalid @enderror" 
                                 value="{{ old('service_date', now()->format('Y-m-d')) }}" required>
-                            @error('service_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('service_date') 
+                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                             @enderror
                         </div>
                     </div>
 
@@ -86,7 +94,9 @@
                             <label class="form-label required">Keluhan Kendaraan</label>
                             <input type="text" name="keluhan" class="form-control @error('keluhan') is-invalid @enderror" 
                                 placeholder="Contoh: Mesin brebet, ganti oli, rem blong" value="{{ old('keluhan') }}" required>
-                            @error('keluhan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('keluhan') 
+                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -179,7 +189,9 @@
                                 <input type="number" min="0" name="total_part" id="total_part" class="form-control @error('total_part') is-invalid @enderror" 
                                     value="{{ old('total_part', 0) }}" required>
                             </div>
-                            @error('total_part') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('total_part')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
                         </div>
                     </div>
 

@@ -15,7 +15,7 @@
                                 <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku"
                                     value="{{ old('sku') }}" placeholder="Input SKU Sparepart">
                                 @error('sku')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     name="name" value="{{ old('name') }}" placeholder="Input Nama Sparepart">
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 <input type="text" class="form-control @error('brand') is-invalid @enderror"
                                     name="brand" value="{{ old('brand') }}" placeholder="Input Merek/Brand">
                                 @error('brand')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <input  class="form-control @error('stock') is-invalid @enderror"
                                     name="stock" value="{{ old('stock') }}" placeholder="Input Jumlah Stok">
                                 @error('stock')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                     <input  class="form-control @error('purchase_price') is-invalid @enderror"
                                         name="purchase_price" value="{{ old('purchase_price') }}" placeholder="0">
                                     @error('purchase_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                     <input  class="form-control @error('selling_price') is-invalid @enderror"
                                         name="selling_price" value="{{ old('selling_price') }}" placeholder="0">
                                     @error('selling_price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <input type="text" class="form-control @error('location') is-invalid @enderror"
                                     name="location" value="{{ old('location') }}" placeholder="Contoh: Rak A-01">
                                 @error('location')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                 @enderror
                             </div>
                         </div>

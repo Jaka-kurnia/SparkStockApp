@@ -23,7 +23,7 @@
                                     <input type="text" class="form-control @error('code') is-invalid @enderror"
                                         name="code" value="{{ old('code', $service->code) }}" readonly>
                                     @error('code')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                         name="complaint_name" value="{{ old('complaint_name', $service->complaint_name) }}"
                                         required>
                                     @error('complaint_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                         <input type="number" class="form-control @error('price') is-invalid @enderror"
                                             name="price" value="{{ old('price', $service->price) }}" required>
                                         @error('price')
-                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                         @enderror
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                             Aktif</option>
                                     </select>
                                     @error('is_service')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                     <textarea rows="4" class="form-control @error('description') is-invalid @enderror" name="description"
                                         placeholder="Tambahkan keterangan deskripsi jika ada...">{{ old('description', $service->description) }}</textarea>
                                     @error('description')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                                     @enderror
                                 </div>
                             </div>
