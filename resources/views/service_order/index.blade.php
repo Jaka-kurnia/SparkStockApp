@@ -141,19 +141,6 @@
                                         -
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    @if ($item->midtrans_status == 'pending')
-                                        <span class="badge bg-warning-lt">Pending</span>
-                                    @elseif($item->midtrans_status == 'paid')
-                                        <span class="badge bg-success-lt">Paid</span>
-                                    @elseif($item->midtrans_status == 'failed')
-                                        <span class="badge bg-danger-lt">Failed</span>
-                                    @elseif($item->midtrans_status == 'expired')
-                                        <span class="badge bg-secondary-lt">Expired</span>
-                                    @else
-                                        -
-                                    @endif
-                                </td> --}}
                                 <td>{{ $item->service_date ? $item->service_date->format('d-m-Y') : '-' }}</td>
                                 <td>
                                     <span class="text-secondary text-truncate d-inline-block" style="max-width: 120px;"

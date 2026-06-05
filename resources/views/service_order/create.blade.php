@@ -25,53 +25,57 @@
                     {{-- Pelanggan --}}
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label required">Pelanggan</label>
-                            <select name="customer_id" class="form-select @error('customer_id') is-invalid @enderror" required>
+                            <label class="form-label ">Pelanggan</label>
+                            <select name="customer_id" class="form-select @error('customer_id') is-invalid @enderror">
                                 <option value="" selected disabled>-- Pilih Pelanggan --</option>
                                 @foreach ($customers as $cust)
-                                    <option value="{{ $cust->id }}" {{ old('customer_id') == $cust->id ? 'selected' : '' }}>
+                                    <option value="{{ $cust->id }}"
+                                        {{ old('customer_id') == $cust->id ? 'selected' : '' }}>
                                         {{ $cust->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('customer_id') 
-                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
-                             @enderror
+                            @error('customer_id')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
                     {{-- Kendaraan --}}
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label required">Kendaraan</label>
-                            <select name="vehicle_id" class="form-select @error('vehicle_id') is-invalid @enderror" required>
+                            <label class="form-label ">Kendaraan</label>
+                            <select name="vehicle_id" class="form-select @error('vehicle_id') is-invalid @enderror">
                                 <option value="" selected disabled>-- Pilih Kendaraan --</option>
                                 @foreach ($vehicles as $veh)
-                                    <option value="{{ $veh->id }}" {{ old('vehicle_id') == $veh->id ? 'selected' : '' }}>
-                                        {{ $veh->plate_number }} - {{ $veh->merk }} {{ $veh->model }}
+                                    <option value="{{ $veh->id }}"
+                                        {{ old('vehicle_id') == $veh->id ? 'selected' : '' }}>
+                                        {{ $veh->plate_number }} - {{ $veh->merk }} {{ $veh->color }}
+                                        ({{ $veh->year }})
                                     </option>
                                 @endforeach
                             </select>
-                            @error('vehicle_id') 
-                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
-                             @enderror
+                            @error('vehicle_id')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
                     {{-- Mekanik --}}
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label required">Mekanik</label>
-                            <select name="mechanic_id" class="form-select @error('mechanic_id') is-invalid @enderror" required>
+                            <label class="form-label ">Mekanik</label>
+                            <select name="mechanic_id" class="form-select @error('mechanic_id') is-invalid @enderror">
                                 <option value="" selected disabled>-- Pilih Mekanik --</option>
                                 @foreach ($mechanics as $mech)
-                                    <option value="{{ $mech->id }}" {{ old('mechanic_id') == $mech->id ? 'selected' : '' }}>
+                                    <option value="{{ $mech->id }}"
+                                        {{ old('mechanic_id') == $mech->id ? 'selected' : '' }}>
                                         {{ $mech->name_mechanic }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('mechanic_id') 
-                            {{-- <div class="invalid-feedback">{{ $message }}</div>  --}}
+                            @error('mechanic_id')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div>  --}}
                             @enderror
                         </div>
                     </div>
@@ -79,23 +83,24 @@
                     {{-- Tanggal Servis --}}
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label required">Tanggal Servis</label>
-                            <input type="date" name="service_date" class="form-control @error('service_date') is-invalid @enderror" 
-                                value="{{ old('service_date', now()->format('Y-m-d')) }}" required>
-                            @error('service_date') 
-                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
-                             @enderror
+                            <label class="form-label ">Tanggal Servis</label>
+                            <input type="date" name="service_date"
+                                class="form-control @error('service_date') is-invalid @enderror"
+                                value="{{ old('service_date', now()->format('Y-m-d')) }}">
+                            @error('service_date')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
                     {{-- Keluhan --}}
                     <div class="col-md-8">
                         <div class="mb-3">
-                            <label class="form-label required">Keluhan Kendaraan</label>
-                            <input type="text" name="keluhan" class="form-control @error('keluhan') is-invalid @enderror" 
-                                placeholder="Contoh: Mesin brebet, ganti oli, rem blong" value="{{ old('keluhan') }}" required>
-                            @error('keluhan') 
-                            {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            <label class="form-label ">Keluhan Kendaraan</label>
+                            <input type="text" name="keluhan" class="form-control @error('keluhan') is-invalid @enderror"
+                                placeholder="Contoh: Mesin brebet, ganti oli, rem blong" value="{{ old('keluhan') }}">
+                            @error('keluhan')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
                             @enderror
                         </div>
                     </div>
@@ -108,7 +113,7 @@
                         <i class="ti ti-plus"></i> Tambah Jasa
                     </button>
                 </div>
-                
+
                 <div class="table-responsive mb-4">
                     <table class="table table-bordered table-vcenter" id="service_table">
                         <thead>
@@ -129,7 +134,8 @@
                                 <th>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="text" id="total_service_display" class="form-control fw-bold bg-light" readonly value="0">
+                                        <input type="text" id="total_service_display"
+                                            class="form-control fw-bold bg-light" readonly value="0">
                                         <input type="hidden" name="total_service" id="total_service" value="0">
                                     </div>
                                 </th>
@@ -146,7 +152,7 @@
                         <i class="ti ti-plus"></i> Tambah Sparepart
                     </button>
                 </div>
-                
+
                 <div class="table-responsive mb-4">
                     <table class="table table-bordered table-vcenter" id="sparepart_table">
                         <thead>
@@ -167,7 +173,8 @@
                                 <th>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="text" id="total_part_display" class="form-control fw-bold bg-light" readonly value="0">
+                                        <input type="text" id="total_part_display"
+                                            class="form-control fw-bold bg-light" readonly value="0">
                                         <input type="hidden" name="total_part" id="total_part" value="0">
                                     </div>
                                 </th>
@@ -180,30 +187,33 @@
                 <h4 class="mb-3">Rincian Tambahan</h4>
 
                 <div class="row row-cards">
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <div class="mb-3">
-                        
-                            <label class="form-label required">Total Sparepart</label>
+                            <label class="form-label ">Total Sparepart</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
-                                <input type="number" min="0" name="total_part" id="total_part" class="form-control @error('total_part') is-invalid @enderror" 
-                                    value="{{ old('total_part', 0) }}" required>
+                                <input type="number" min="0" name="total_part" id="total_part"
+                                    class="form-control @error('total_part') is-invalid @enderror"
+                                    value="{{ old('total_part', 0) }}">
                             </div>
                             @error('total_part')
-                             <div class="invalid-feedback">{{ $message }}</div>
-                              @enderror
+                            
+                            @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label class="form-label">Diskon</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
-                                <input type="number" min="0" name="discount" id="discount" class="form-control @error('discount') is-invalid @enderror" 
+                                <input type="number" min="0" name="discount" id="discount"
+                                    class="form-control @error('discount') is-invalid @enderror"
                                     value="{{ old('discount', 0) }}">
                             </div>
-                            @error('discount') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('discount')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
@@ -212,42 +222,54 @@
                             <label class="form-label">Pajak (Tax)</label>
                             <div class="input-group">
                                 <span class="input-group-text">Rp</span>
-                                <input type="number" min="0" name="tax" id="tax" class="form-control @error('tax') is-invalid @enderror" 
-                                    value="{{ old('tax', 0) }}">
+                                <input type="number" min="0" name="tax" id="tax"
+                                    class="form-control @error('tax') is-invalid @enderror" value="{{ old('tax', 0) }}">
                             </div>
-                            @error('tax') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('tax')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label class="form-label required">Grand Total</label>
+                            <label class="form-label ">Grand Total</label>
                             <div class="input-group">
                                 <span class="input-group-text fw-bold">Rp</span>
-                                <input type="text" id="grand_total" class="form-control fw-bold bg-light" readonly value="0">
+                                <input type="text" id="grand_total" class="form-control fw-bold bg-light" readonly
+                                    value="0">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="mb-3">
-                            <label class="form-label required">Metode Pembayaran</label>
-                            <select name="payment_method" class="form-select @error('payment_method') is-invalid @enderror" required>
-                                <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai (Cash)</option>
-                                <option value="debit" {{ old('payment_method') == 'debit' ? 'selected' : '' }}>Kartu Debit</option>
-                                <option value="credit" {{ old('payment_method') == 'credit' ? 'selected' : '' }}>Kartu Kredit</option>
-                                <option value="midtrans" {{ old('payment_method') == 'midtrans' ? 'selected' : '' }}>Midtrans / Online</option>
+                            <label class="form-label ">Metode Pembayaran</label>
+                            <select name="payment_method"
+                                class="form-select @error('payment_method') is-invalid @enderror">
+                                <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tunai
+                                    (Cash)</option>
+                                <option value="debit" {{ old('payment_method') == 'debit' ? 'selected' : '' }}>Kartu
+                                    Debit</option>
+                                <option value="credit" {{ old('payment_method') == 'credit' ? 'selected' : '' }}>Kartu
+                                    Kredit</option>
+                                <option value="midtrans" {{ old('payment_method') == 'midtrans' ? 'selected' : '' }}>
+                                    Midtrans / Online</option>
                             </select>
-                            @error('payment_method') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('payment_method')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label">Catatan Tambahan</label>
-                            <textarea name="note" rows="2" class="form-control @error('note') is-invalid @enderror" 
+                            <textarea name="note" rows="2" class="form-control @error('note') is-invalid @enderror"
                                 placeholder="Opsional: Tulis instruksi mekanik atau catatan transaksi...">{{ old('note') }}</textarea>
-                            @error('note') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('note')
+                                {{-- <div class="invalid-feedback">{{ $message }}</div> --}}
+                            @enderror
                         </div>
                     </div>
 
@@ -264,6 +286,4 @@
     </div>
 
     @include('service_order.secript')
-
-
 @endsection

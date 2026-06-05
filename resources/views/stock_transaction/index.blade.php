@@ -91,7 +91,7 @@
                                 <td>Rp {{ number_format($item->price_per_unit, 0, ',', '.') }}</td>
                                 <td>Rp {{ number_format($item->total_amount, 0, ',', '.') }}</td>
                                 <td class="text-center">
-                                    {{ $item->notes ? $item->notes : '-'}}
+                                    {{ $item->note ? $item->note : '-'}}
                                 </td>
                             </tr>
                         @empty

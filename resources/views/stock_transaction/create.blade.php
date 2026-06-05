@@ -43,9 +43,9 @@
                     {{-- 1. Pilihan Tipe Transaksi --}}
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label required">Tipe Transaksi</label>
+                            <label class="form-label">Tipe Transaksi</label>
                             <select name="type" id="transaction_type"
-                                class="form-select @error('type') is-invalid @enderror" required>
+                                class="form-select @error('type') is-invalid @enderror" >
                                 <option value="" selected disabled>-- Pilih Tipe Mutasi --</option>
                                 <option value="in" {{ old('type') == 'in' ? 'selected' : '' }}>Barang Masuk (Restock / Pembelian)</option>
                                 <option value="out" {{ old('type') == 'out' ? 'selected' : '' }}>Barang Keluar (Penjualan Langsung)</option>

@@ -45,10 +45,10 @@ class MechanicController extends Controller
             'phone' => 'required',
             'is_active' => 'required',
         ], [
-            'user_id.required' => 'User wajib diisi',
+            'user_id.required' => 'User wajib dipilih',
             'name_mechanic.required' => 'Nama Mekanik wajib diisi',
             'phone.required' => 'No Telepon wajib diisi',
-            'is_active.required' => 'Setatus wajib diisi',
+            'is_active.required' => 'Setatus wajib dipilih',
         ]);
         $store = Mechanic::create($request->all());
         if ($store) {
