@@ -118,8 +118,6 @@
                                 </td>
                                 <td>Rp {{ number_format($item->total_service, 0, ',', '.') }}</td>
                                 <td>Rp {{ number_format($item->total_part, 0, ',', '.') }}</td>
-                                {{-- <td>Rp {{ number_format($item->discount, 0, ',', '.') }}</td>
-                                <td>Rp {{ number_format($item->tax, 0, ',', '.') }}</td> --}}
                                 <td><strong>Rp {{ number_format($item->grand_total, 0, ',', '.') }}</strong></td>
                                 <td>
                                     @if ($item->payment_method == 'cash')

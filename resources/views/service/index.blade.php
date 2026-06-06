@@ -110,7 +110,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">Data Service Tidak Tersedia</td>
+                                <td colspan="10" class="text-center text-danger py-4">
+                                    <i class="ti ti-alert-circle d-block mb-2" style="font-size: 24px;"></i>
+                                    Data mechanic belum tersedia.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

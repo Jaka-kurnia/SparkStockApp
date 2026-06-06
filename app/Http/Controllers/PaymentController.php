@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\ServiceOrder;
 use App\Models\MidtransTransaction;
-
+use App\Models\ServiceOrder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Midtrans\Snap;
 
 
@@ -61,9 +61,69 @@ class PaymentController extends Controller
         }
     }
 
-  
     public function paymentFinished(Request $request)
     {
+        $orderId = $request->get('order_id');
+
+        if ($orderId) {
+            $this->initMidtrans();
+            try {
+                // Get transaction status from Midtrans API
+                $status = \Midtrans\Transaction::status($orderId);
+                
+                // Find midtrans transaction record
+                $midtransTransaction = MidtransTransaction::where('order_id', $orderId)->first();
+                
+                if ($midtransTransaction) {
+                    $order = $midtransTransaction->serviceOrder;
+                    
+                    if ($order) {
+                        /** @var object $status */
+                        $transactionStatus = $status->transaction_status;
+                        $fraudStatus = $status->fraud_status;
+                        
+                        $dbMidtransStatus = 'pending';
+                        $dbPaymentStatus = 'unpaid';
+                        $paidAt = null;
+
+                        if ($transactionStatus == 'capture') {
+                            if ($fraudStatus == 'challenge') {
+                                $dbMidtransStatus = 'pending';
+                            } else if ($fraudStatus == 'accept') {
+                                $dbMidtransStatus = 'paid';
+                                $dbPaymentStatus = 'paid';
+                                $paidAt = now();
+                            }
+                        } else if ($transactionStatus == 'settlement') {
+                            $dbMidtransStatus = 'paid';
+                            $dbPaymentStatus = 'paid';
+                            $paidAt = now();
+                        } else if (in_array($transactionStatus, ['deny', 'expire', 'cancel'])) {
+                            $dbMidtransStatus = 'failed';
+                            $dbPaymentStatus = 'unpaid';
+                        }
+
+                        // Update service order status
+                        $order->update([
+                            'payment_status' => $dbPaymentStatus,
+                            'midtrans_status' => $dbMidtransStatus,
+                            'paid_at' => $paidAt,
+                        ]);
+
+                        // Update midtrans transaction status
+                        $midtransTransaction->update([
+                            'transaction_status' => $transactionStatus,
+                            'transaction_id' => $status->transaction_id,
+                            'payment_type' => $status->payment_type,
+                            'response_payload' => json_encode($status),
+                        ]);
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error('Midtrans status sync failed: ' . $e->getMessage());
+            }
+        }
+
         return view('payment.finished', [
             'order_id' => $request->get('order_id'),
             'status_code' => $request->get('status_code'),
