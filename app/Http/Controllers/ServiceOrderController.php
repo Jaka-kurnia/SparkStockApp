@@ -107,7 +107,7 @@ class ServiceOrderController extends Controller
         $kodeOrder = "TRX-$today-" . str_pad($sequence, 3, '0', STR_PAD_LEFT);
 
         // Generate kode queue
-        $lastQueue = ServiceOrder::whereDate('created_at', now()->toDateString())->latest('id')->first();
+        $lastQueue = ServiceOrder::where('service_date', $request->service_date)->latest('id')->first();
         $queueSeq = $lastQueue ? (int) substr($lastQueue->kode_queue, -3) + 1 : 1;
         $kodeQueue = 'A' . str_pad($queueSeq, 3, '0', STR_PAD_LEFT);
 
