@@ -94,7 +94,7 @@
                                 <td>{{ $item->description }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                                        <i class="ti ti-file-pencil" style="font-size: 18px;"></i>
+                                        <i class="ti ti-edit" style="font-size: 18px;"></i>
 
                                     </a>
                                     <form action="{{ route('service.destroy', $item->id) }}" method="POST"
