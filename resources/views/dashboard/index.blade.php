@@ -74,7 +74,7 @@
                     <div class="row align-items-center">
                         <div class="col-auto">
                             <span class="bg-white text-blue avatar rounded-circle">
-                                <i class="ti ti-receipt fs-2"></i>
+                                <i class="ti ti-package fs-2"></i>
                             </span>
                         </div>
                         <div class="col">
