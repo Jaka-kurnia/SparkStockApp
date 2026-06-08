@@ -8,9 +8,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Show the login form.
-     */
+//    fungsi untuk menampilkan halaman login
     public function showLogin()
     {
         if (Auth::check()) {
@@ -19,9 +17,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Process login request.
-     */
+    // fungsi untuk proses login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -39,7 +35,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard.index')->with('success', 'Logged in as Owner.');
             }
             
-            return redirect()->route('supplier.index')->with('success', 'Logged in successfully.');
+            return redirect()->route('dashboard.index')->with('success', 'Logged in successfully.');
         }
 
         return back()->withErrors([
@@ -47,9 +43,7 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Log the user out.
-     */
+    // fungsi untuk logout
     public function logout(Request $request)
     {
         Auth::logout();
@@ -60,9 +54,7 @@ class AuthController extends Controller
         return redirect('/')->with('success', 'Logged out successfully.');
     }
 
-    /**
-     * Quick Switch role user for development/demo.
-     */
+//   fungsi untuk switch role
     public function quickSwitch($role)
     {
         $emailMap = [

@@ -10,9 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Fungsi index untuk menampilkan daftar customer dengan fitur pencarian
     public function index(Request $request)
     {
         $query = Customer::query();
@@ -23,17 +21,13 @@ class CustomerController extends Controller
         return view('customer.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Fungsi create untuk menampilkan form tambah customer
     public function create()
     {
         return view('customer.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Fungsi store untuk menyimpan data customer baru ke database
     public function store(Request $request)
     {
         $request->validate([
@@ -65,18 +59,14 @@ class CustomerController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+//    Fungsi edit untuk menampilkan form edit customer
     public function edit(Customer $customer)
     {
         $data['customer'] = Customer::find($customer->id);
         return view('customer.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Fungsi update untuk menyimpan perubahan data customer ke database
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -101,9 +91,7 @@ class CustomerController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Fungsi destroy untuk menghapus data customer dari database
     public function destroy($id)
     {
         $customer = Customer::find($id);
