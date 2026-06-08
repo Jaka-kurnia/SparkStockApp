@@ -22,6 +22,8 @@ Route::get('/auth/switch/{role}', [AuthController::class, 'quickSwitch'])->name(
 
 // Route dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('dashboard/export-pdf', [DashboardController::class, 'exportPdf'])->name('dashboard.exportPdf');
+Route::get('dashboard/export-excel', [DashboardController::class, 'exportExcel'])->name('dashboard.exportExcel');
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {
