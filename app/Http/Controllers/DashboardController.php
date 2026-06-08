@@ -101,6 +101,7 @@ class DashboardController extends Controller
         ];
     }
 
+    // fungsi untuk mendapatkan data statistik utama seperti total pendapatan, jumlah order, jumlah order yang selesai, dan jumlah sparepart yang terjual berdasarkan periode waktu yang dipilih
     private function getStatsData($startDate, $endDate)
     {
         $revenue = ServiceOrder::whereBetween('service_date', [$startDate, $endDate])
@@ -118,7 +119,7 @@ class DashboardController extends Controller
             ->whereBetween('service_orders.service_date', [$startDate, $endDate])
             ->sum('service_order_details.quantity');
 
-        // General total values (unaffected by filters, for comparison if needed, or keeping it local)
+    //    fungsi untuk menghitung total customer, total mekanik aktif, dan sparepart dengan stok kurang dari 5
         $totalCustomers = Customer::count();
         $totalMechanics = Mechanic::where('is_active', 1)->count();
         $lowStockSpareparts = Sparepart::where('stock', '<', 5)->count();
@@ -134,9 +135,10 @@ class DashboardController extends Controller
         ];
     }
 
+    // fungsi untuk mendapatkan data tren pendapatan dan jumlah order berdasarkan periode waktu yang dipilih
     private function getChartData($startDate, $endDate, $period)
     {
-        // 1. Trend Revenue & Order Count
+        
         if ($period === 'year' || ($period === 'custom' && $startDate->diffInDays($endDate) > 31)) {
             $trendRaw = DB::table('service_orders')
                 ->select(DB::raw("DATE_FORMAT(service_date, '%Y-%m') as date_label"), DB::raw('SUM(grand_total) as revenue'), DB::raw('COUNT(*) as count'))
